@@ -24,13 +24,16 @@ Configure Parameters: Set the necessary install parameters, including silent ins
 Registry Edits: Define any registry changes that need to be made during installation.
 Process Handling: Specify any processes that need to be terminated before the installation begins.
 Package and Log: Start the packaging process. The tool will create an .intunewin package, complete with detailed logs of the entire process.
+
 Benefits
 
 Efficiency: Save time with automated packaging and streamlined workflows.
 Reliability: Ensure consistent and error-free deployment with comprehensive logging and pre-installation checks.
 Flexibility: Customize installations with parameter settings, registry edits, and process management.
 Version Control: Automatically manage and detect MSI versions for better organization and tracking.
+
 Getting Started
+
 To get started with CNAG.APP connecT .Intunewin Packager, follow these simple steps:
 
 Download and Install: Download the latest version of the tool from the releases page.
@@ -43,8 +46,3 @@ License
 This project is licensed under the MIT License - see the LICENSE file for details.
 
 Feel free to explore the repository, report issues, and contribute to making CNAG.APP connecT .Intunewin Packager even better!
-
-For more information, visit our Wiki or Documentation.
-
-Contact
-For support or inquiries, feel free to contact us at any time.
