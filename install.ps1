@@ -1,20 +1,23 @@
-﻿### CNAG Intune Win32 Standard Template
+### CNAG Intune Win32 Standard Template
 # Author: Bender, André
 # Created: 28.05.2024
 
+### LOAD CONFIG.PS1
+. .\config.ps1
+
 ### Fill out the variables below
-# replace with package name (Productname Version)
-$PackageName = "SwyxIt! 13.10.23497.0"
+# replace with package name (Productname)
+$packageName = "$($config.packageName) $($config.packageVersion)"
 # replace with installation parameter (/qn ALLUSERS=1 REBOOT=ReallySuppress)
-$installParameter = "/QN ALLUSERS=1"
+$installParameter = $config.installParameter
 # replace with actual file name and ending (FileName.msi) or (FileName.exe)
-$installFile = "SwyxIt!German64.msi"
+$installFile = $config.installFile
 # enter Process Name without file ending (e.g. Greenshot) that should be killed before installation
-$killProcessName = "SwyxIt!"
+$killProcessName = $config.killProcessName
 # 1 for system, 0 for user
-[Bool]$installContext = 1
+[Bool]$installContext = $config.installContext
 # 1 for yes, 0 for no
-[Bool]$editRegistry = 1
+[Bool]$editRegistry = $config.editRegistry
 
 ### SET UP $installContext
 # Sets Path_local for Log-Files depening on installContext
