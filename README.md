@@ -4,14 +4,21 @@ CNAG.APP connecT .Intunewin Packager is a powerful and user-friendly tool design
 Features
 
 Easy Packaging: 
-Convert .msi or .exe files into .intunewin format with just a few clicks.
+Convert .msi or .exe files into .intunewin format with just a few clicks. 
+
 Install Parameters: Easily configure install parameters for your applications to meet specific deployment needs.
+
 Registry Editing: Modify the Windows registry as part of the installation process to ensure proper configuration.
+
 Process Management: Kill specified processes before installation to prevent conflicts and ensure a smooth installation.
+
 Logging: Comprehensive logging capabilities to track the packaging process and troubleshoot any issues.
+
 Automatic MSI Version Detection: Automatically detect the version of MSI files, simplifying version control and management.
 
 How It Works
+
+
 Select the File: Choose the .msi or .exe file you want to package.
 Configure Parameters: Set the necessary install parameters, including silent installation options and custom configurations.
 Registry Edits: Define any registry changes that need to be made during installation.
@@ -40,4 +47,4 @@ Feel free to explore the repository, report issues, and contribute to making CNA
 For more information, visit our Wiki or Documentation.
 
 Contact
-For support or inquiries, please contact support@yourdomain.com.
+For support or inquiries, feel free to contact us at any time.
