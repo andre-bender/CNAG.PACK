@@ -1,4 +1,4 @@
-# CNAG.APP connecT .Intunewin Packager
+# CNAG.APP - connecT .Intunewin Packager
 CNAG.APP connecT .Intunewin Packager is a powerful and user-friendly tool designed to simplify the packaging of .msi or .exe files into .intunewin format. This program is tailored for IT professionals and system administrators who need to efficiently prepare applications for deployment via Microsoft Intune. With a focus on automation and ease of use, it streamlines the entire process, from file selection to final packaging, ensuring a seamless and efficient workflow.
 
 Features
