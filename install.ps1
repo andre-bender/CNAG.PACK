@@ -1,5 +1,5 @@
-### CNAG Intune Win32 Standard Template
-# Author: Bender, André
+﻿### CNAG Intune Win32 Standard Template
+# Author: Bender, Andre
 # Created: 28.05.2024
 
 ### LOAD CONFIG.PS1

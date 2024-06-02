@@ -1,7 +1,7 @@
 $Form1 = New-Object -TypeName System.Windows.Forms.Form
-[System.Windows.Forms.Label]$Label1 = $null
+[System.Windows.Forms.Label]$L_CNAGPACK = $null
 [System.Windows.Forms.TextBox]$TB_PackageName = $null
-[System.Windows.Forms.Label]$Label2 = $null
+[System.Windows.Forms.Label]$L_AllRightsReservedCNAG = $null
 [System.Windows.Forms.Label]$L_ProgressBarTitle = $null
 [System.Windows.Forms.Label]$Label5 = $null
 [System.Windows.Forms.Label]$Label6 = $null
@@ -27,12 +27,13 @@ $Form1 = New-Object -TypeName System.Windows.Forms.Form
 [System.Windows.Forms.CheckBox]$CB_killProcessesName = $null
 [System.Windows.Forms.ProgressBar]$PB_ProgressBar = $null
 [System.Windows.Forms.Label]$Label4 = $null
+[System.Windows.Forms.Label]$L_ProgressBarOutputFolder = $null
 function InitializeComponent
 {
 $resources = . (Join-Path $PSScriptRoot 'form.resources.ps1')
-$Label1 = (New-Object -TypeName System.Windows.Forms.Label)
+$L_CNAGPACK = (New-Object -TypeName System.Windows.Forms.Label)
 $TB_PackageName = (New-Object -TypeName System.Windows.Forms.TextBox)
-$Label2 = (New-Object -TypeName System.Windows.Forms.Label)
+$L_AllRightsReservedCNAG = (New-Object -TypeName System.Windows.Forms.Label)
 $L_ProgressBarTitle = (New-Object -TypeName System.Windows.Forms.Label)
 $Label5 = (New-Object -TypeName System.Windows.Forms.Label)
 $Label6 = (New-Object -TypeName System.Windows.Forms.Label)
@@ -58,17 +59,21 @@ $CB_editRegistry = (New-Object -TypeName System.Windows.Forms.CheckBox)
 $CB_killProcessesName = (New-Object -TypeName System.Windows.Forms.CheckBox)
 $PB_ProgressBar = (New-Object -TypeName System.Windows.Forms.ProgressBar)
 $Label4 = (New-Object -TypeName System.Windows.Forms.Label)
+$L_ProgressBarOutputFolder = (New-Object -TypeName System.Windows.Forms.Label)
 $Form1.SuspendLayout()
 #
-#Label1
+#L_CNAGPACK
 #
-$Label1.Font = (New-Object -TypeName System.Drawing.Font -ArgumentList @([System.String]'Tahoma',[System.Single]14,[System.Drawing.FontStyle]::Bold,[System.Drawing.GraphicsUnit]::Point,([System.Byte][System.Byte]0)))
-$Label1.ForeColor = [System.Drawing.Color]::White
-$Label1.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]37,[System.Int32]33))
-$Label1.Name = [System.String]'Label1'
-$Label1.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]608,[System.Int32]37))
-$Label1.TabIndex = [System.Int32]0
-$Label1.Text = [System.String]'CNAG.PACK - connecT .Intunewin Packager'
+$L_CNAGPACK.Font = (New-Object -TypeName System.Drawing.Font -ArgumentList @([System.String]'Tahoma',[System.Single]14,[System.Drawing.FontStyle]::Bold,[System.Drawing.GraphicsUnit]::Point,([System.Byte][System.Byte]0)))
+$L_CNAGPACK.ForeColor = [System.Drawing.Color]::White
+$L_CNAGPACK.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]37,[System.Int32]33))
+$L_CNAGPACK.Name = [System.String]'L_CNAGPACK'
+$L_CNAGPACK.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]608,[System.Int32]37))
+$L_CNAGPACK.TabIndex = [System.Int32]0
+$L_CNAGPACK.Text = [System.String]'CNAG.PACK - connecT .Intunewin Packager'
+$L_CNAGPACK.add_Click($L_CNAGPACK_Click)
+$L_CNAGPACK.add_MouseLeave($L_CNAGPACK_MouseLeave)
+$L_CNAGPACK.add_MouseHover($L_CNAGPACK_MouseHover)
 #
 #TB_PackageName
 #
@@ -78,15 +83,16 @@ $TB_PackageName.Name = [System.String]'TB_PackageName'
 $TB_PackageName.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]388,[System.Int32]27))
 $TB_PackageName.TabIndex = [System.Int32]1
 #
-#Label2
+#L_AllRightsReservedCNAG
 #
-$Label2.Font = (New-Object -TypeName System.Drawing.Font -ArgumentList @([System.String]'Tahoma',[System.Single]7,[System.Drawing.FontStyle]::Regular,[System.Drawing.GraphicsUnit]::Point,([System.Byte][System.Byte]0)))
-$Label2.ForeColor = [System.Drawing.Color]::White
-$Label2.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]37,[System.Int32]886))
-$Label2.Name = [System.String]'Label2'
-$Label2.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]199,[System.Int32]23))
-$Label2.TabIndex = [System.Int32]2
-$Label2.Text = [System.String]'All Rights Reserved @ CNAG 2024'
+$L_AllRightsReservedCNAG.Font = (New-Object -TypeName System.Drawing.Font -ArgumentList @([System.String]'Tahoma',[System.Single]7,[System.Drawing.FontStyle]::Regular,[System.Drawing.GraphicsUnit]::Point,([System.Byte][System.Byte]0)))
+$L_AllRightsReservedCNAG.ForeColor = [System.Drawing.Color]::White
+$L_AllRightsReservedCNAG.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]37,[System.Int32]886))
+$L_AllRightsReservedCNAG.Name = [System.String]'L_AllRightsReservedCNAG'
+$L_AllRightsReservedCNAG.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]199,[System.Int32]23))
+$L_AllRightsReservedCNAG.TabIndex = [System.Int32]2
+$L_AllRightsReservedCNAG.Text = [System.String]'All Rights Reserved @ CNAG 2024'
+$L_AllRightsReservedCNAG.add_Click($L_AllRightsReservedCNAG_Click)
 #
 #L_ProgressBarTitle
 #
@@ -97,7 +103,7 @@ $L_ProgressBarTitle.ForeColor = [System.Drawing.Color]::White
 $L_ProgressBarTitle.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]37,[System.Int32]815))
 $L_ProgressBarTitle.Name = [System.String]'L_ProgressBarTitle'
 $L_ProgressBarTitle.RightToLeft = [System.Windows.Forms.RightToLeft]::No
-$L_ProgressBarTitle.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]515,[System.Int32]23))
+$L_ProgressBarTitle.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]529,[System.Int32]23))
 $L_ProgressBarTitle.TabIndex = [System.Int32]2
 $L_ProgressBarTitle.Text = [System.String]'Please wait while the .intunewin file is being built...'
 $L_ProgressBarTitle.Visible = $false
@@ -167,7 +173,7 @@ $RTB_InstallParameter.Text = [System.String]''
 #
 $B_selectFile.BackColor = [System.Drawing.Color]::White
 $B_selectFile.Font = (New-Object -TypeName System.Drawing.Font -ArgumentList @([System.String]'Arial',[System.Single]10,[System.Drawing.FontStyle]::Regular,[System.Drawing.GraphicsUnit]::Point,([System.Byte][System.Byte]0)))
-$B_selectFile.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]453,[System.Int32]114))
+$B_selectFile.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]453,[System.Int32]116))
 $B_selectFile.Name = [System.String]'B_selectFile'
 $B_selectFile.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]113,[System.Int32]29))
 $B_selectFile.TabIndex = [System.Int32]4
@@ -384,7 +390,7 @@ $CB_killProcessesName.Name = [System.String]'CB_killProcessesName'
 $CB_killProcessesName.RightToLeft = [System.Windows.Forms.RightToLeft]::No
 $CB_killProcessesName.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]548,[System.Int32]24))
 $CB_killProcessesName.TabIndex = [System.Int32]7
-$CB_killProcessesName.Text = [System.String]'Kill Processes Name (separate with commas, e.g. msedge, notepad)'
+$CB_killProcessesName.Text = [System.String]'Kill Processes Name (separate with commas)'
 $CB_killProcessesName.UseVisualStyleBackColor = $true
 $CB_killProcessesName.add_CheckedChanged($CB_killProcessesName_CheckedChanged)
 #
@@ -393,6 +399,7 @@ $CB_killProcessesName.add_CheckedChanged($CB_killProcessesName_CheckedChanged)
 $PB_ProgressBar.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]40,[System.Int32]789))
 $PB_ProgressBar.Name = [System.String]'PB_ProgressBar'
 $PB_ProgressBar.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]529,[System.Int32]23))
+$PB_ProgressBar.Style = [System.Windows.Forms.ProgressBarStyle]::Continuous
 $PB_ProgressBar.TabIndex = [System.Int32]8
 $PB_ProgressBar.Visible = $false
 #
@@ -409,6 +416,20 @@ $Label4.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System
 $Label4.TabIndex = [System.Int32]2
 $Label4.Text = [System.String]'Install File:'
 #
+#L_ProgressBarOutputFolder
+#
+$L_ProgressBarOutputFolder.BackColor = [System.Drawing.Color]::FromArgb(([System.Int32]([System.Byte][System.Byte]14)),([System.Int32]([System.Byte][System.Byte]30)),([System.Int32]([System.Byte][System.Byte]55)))
+
+$L_ProgressBarOutputFolder.Font = (New-Object -TypeName System.Drawing.Font -ArgumentList @([System.String]'Arial',[System.Single]10))
+$L_ProgressBarOutputFolder.ForeColor = [System.Drawing.Color]::White
+$L_ProgressBarOutputFolder.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]37,[System.Int32]838))
+$L_ProgressBarOutputFolder.Name = [System.String]'L_ProgressBarOutputFolder'
+$L_ProgressBarOutputFolder.RightToLeft = [System.Windows.Forms.RightToLeft]::No
+$L_ProgressBarOutputFolder.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]529,[System.Int32]23))
+$L_ProgressBarOutputFolder.TabIndex = [System.Int32]2
+$L_ProgressBarOutputFolder.Text = [System.String]'Please wait while the .intunewin file is being built...'
+$L_ProgressBarOutputFolder.Visible = $false
+#
 #Form1
 #
 $Form1.AutoScaleDimensions = (New-Object -TypeName System.Drawing.SizeF -ArgumentList @([System.Single]120,[System.Single]120))
@@ -422,9 +443,9 @@ $Form1.Controls.Add($B_create_Intunewin)
 $Form1.Controls.Add($R_System)
 $Form1.Controls.Add($B_selectFile)
 $Form1.Controls.Add($RTB_InstallParameter)
-$Form1.Controls.Add($Label2)
+$Form1.Controls.Add($L_AllRightsReservedCNAG)
 $Form1.Controls.Add($TB_PackageName)
-$Form1.Controls.Add($Label1)
+$Form1.Controls.Add($L_CNAGPACK)
 $Form1.Controls.Add($L_ProgressBarTitle)
 $Form1.Controls.Add($Label5)
 $Form1.Controls.Add($Label6)
@@ -444,6 +465,7 @@ $Form1.Controls.Add($CB_shortcutStartmenu)
 $Form1.Controls.Add($CB_editRegistry)
 $Form1.Controls.Add($CB_killProcessesName)
 $Form1.Controls.Add($Label4)
+$Form1.Controls.Add($L_ProgressBarOutputFolder)
 $Form1.FormBorderStyle = [System.Windows.Forms.FormBorderStyle]::FixedSingle
 $Form1.Icon = ([System.Drawing.Icon]$resources.'$this.Icon')
 $Form1.MaximizeBox = $false
@@ -451,9 +473,9 @@ $Form1.Text = [System.String]'CNAG.PACK - connecT .Intunewin Packager'
 $Form1.add_Load($Form1_Load)
 $Form1.ResumeLayout($false)
 $Form1.PerformLayout()
-Add-Member -InputObject $Form1 -Name Label1 -Value $Label1 -MemberType NoteProperty
+Add-Member -InputObject $Form1 -Name L_CNAGPACK -Value $L_CNAGPACK -MemberType NoteProperty
 Add-Member -InputObject $Form1 -Name TB_PackageName -Value $TB_PackageName -MemberType NoteProperty
-Add-Member -InputObject $Form1 -Name Label2 -Value $Label2 -MemberType NoteProperty
+Add-Member -InputObject $Form1 -Name L_AllRightsReservedCNAG -Value $L_AllRightsReservedCNAG -MemberType NoteProperty
 Add-Member -InputObject $Form1 -Name L_ProgressBarTitle -Value $L_ProgressBarTitle -MemberType NoteProperty
 Add-Member -InputObject $Form1 -Name Label5 -Value $Label5 -MemberType NoteProperty
 Add-Member -InputObject $Form1 -Name Label6 -Value $Label6 -MemberType NoteProperty
@@ -479,5 +501,6 @@ Add-Member -InputObject $Form1 -Name CB_editRegistry -Value $CB_editRegistry -Me
 Add-Member -InputObject $Form1 -Name CB_killProcessesName -Value $CB_killProcessesName -MemberType NoteProperty
 Add-Member -InputObject $Form1 -Name PB_ProgressBar -Value $PB_ProgressBar -MemberType NoteProperty
 Add-Member -InputObject $Form1 -Name Label4 -Value $Label4 -MemberType NoteProperty
+Add-Member -InputObject $Form1 -Name L_ProgressBarOutputFolder -Value $L_ProgressBarOutputFolder -MemberType NoteProperty
 }
 . InitializeComponent
