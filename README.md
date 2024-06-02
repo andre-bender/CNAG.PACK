@@ -17,6 +17,17 @@ Easy Packaging:
 - Registry Edits: Define any registry changes that need to be made during installation.
 - Process Handling: Specify any processes that need to be terminated before the installation begins.
 - Package and Log: Start the packaging process. The tool will create an .intunewin package, complete with detailed logs of the entire process.
+- Upload .intunewin in Microsoft Intune: Simply upload the .intune package and set the install and uninstall command.
+ ![image](https://tech.tristantyson.com/assets/images/DeployPowerShellApp/selectIntunewinFile.gif)
+- Set the following install & uninstall command.
+  - Install command: powershell.exe -NoProfile -ExecutionPolicy Bypass -NoNewWindow -File .\install.ps1
+  - Uninstall command: powershell.exe -NoProfile -ExecutionPolicy Bypass -NoNewWindow -File .\uninstall.ps1
+   ![image](https://tech.tristantyson.com/assets/images/DeployPowerShellApp/program.png)
+ 
+    
+   
+
+
 
 ### Benefits
 
