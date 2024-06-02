@@ -28,6 +28,8 @@ $Form1 = New-Object -TypeName System.Windows.Forms.Form
 [System.Windows.Forms.ProgressBar]$PB_ProgressBar = $null
 [System.Windows.Forms.Label]$Label4 = $null
 [System.Windows.Forms.Label]$L_ProgressBarOutputFolder = $null
+[System.Windows.Forms.Label]$Label1 = $null
+[System.Windows.Forms.RichTextBox]$RTB_UninstallParameter = $null
 function InitializeComponent
 {
 $resources = . (Join-Path $PSScriptRoot 'form.resources.ps1')
@@ -60,6 +62,8 @@ $CB_killProcessesName = (New-Object -TypeName System.Windows.Forms.CheckBox)
 $PB_ProgressBar = (New-Object -TypeName System.Windows.Forms.ProgressBar)
 $Label4 = (New-Object -TypeName System.Windows.Forms.Label)
 $L_ProgressBarOutputFolder = (New-Object -TypeName System.Windows.Forms.Label)
+$Label1 = (New-Object -TypeName System.Windows.Forms.Label)
+$RTB_UninstallParameter = (New-Object -TypeName System.Windows.Forms.RichTextBox)
 $Form1.SuspendLayout()
 #
 #L_CNAGPACK
@@ -87,7 +91,7 @@ $TB_PackageName.TabIndex = [System.Int32]1
 #
 $L_AllRightsReservedCNAG.Font = (New-Object -TypeName System.Drawing.Font -ArgumentList @([System.String]'Tahoma',[System.Single]7,[System.Drawing.FontStyle]::Regular,[System.Drawing.GraphicsUnit]::Point,([System.Byte][System.Byte]0)))
 $L_AllRightsReservedCNAG.ForeColor = [System.Drawing.Color]::White
-$L_AllRightsReservedCNAG.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]37,[System.Int32]886))
+$L_AllRightsReservedCNAG.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]37,[System.Int32]996))
 $L_AllRightsReservedCNAG.Name = [System.String]'L_AllRightsReservedCNAG'
 $L_AllRightsReservedCNAG.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]199,[System.Int32]23))
 $L_AllRightsReservedCNAG.TabIndex = [System.Int32]2
@@ -100,7 +104,7 @@ $L_ProgressBarTitle.BackColor = [System.Drawing.Color]::FromArgb(([System.Int32]
 
 $L_ProgressBarTitle.Font = (New-Object -TypeName System.Drawing.Font -ArgumentList @([System.String]'Arial',[System.Single]10))
 $L_ProgressBarTitle.ForeColor = [System.Drawing.Color]::White
-$L_ProgressBarTitle.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]37,[System.Int32]815))
+$L_ProgressBarTitle.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]37,[System.Int32]925))
 $L_ProgressBarTitle.Name = [System.String]'L_ProgressBarTitle'
 $L_ProgressBarTitle.RightToLeft = [System.Windows.Forms.RightToLeft]::No
 $L_ProgressBarTitle.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]529,[System.Int32]23))
@@ -114,7 +118,7 @@ $Label5.BackColor = [System.Drawing.Color]::FromArgb(([System.Int32]([System.Byt
 
 $Label5.Font = (New-Object -TypeName System.Drawing.Font -ArgumentList @([System.String]'Arial',[System.Single]10))
 $Label5.ForeColor = [System.Drawing.Color]::White
-$Label5.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]37,[System.Int32]370))
+$Label5.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]40,[System.Int32]370))
 $Label5.Name = [System.String]'Label5'
 $Label5.RightToLeft = [System.Windows.Forms.RightToLeft]::No
 $Label5.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]332,[System.Int32]23))
@@ -141,11 +145,13 @@ $TB_KillProcessesName.Enabled = $false
 $TB_KillProcessesName.Font = (New-Object -TypeName System.Drawing.Font -ArgumentList @([System.String]'Arial',[System.Single]10))
 $TB_KillProcessesName.ForeColor = [System.Drawing.SystemColors]::WindowText
 $TB_KillProcessesName.ImeMode = [System.Windows.Forms.ImeMode]::NoControl
-$TB_KillProcessesName.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]40,[System.Int32]500))
+$TB_KillProcessesName.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]40,[System.Int32]610))
 $TB_KillProcessesName.Name = [System.String]'TB_KillProcessesName'
 $TB_KillProcessesName.RightToLeft = [System.Windows.Forms.RightToLeft]::No
 $TB_KillProcessesName.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]529,[System.Int32]27))
 $TB_KillProcessesName.TabIndex = [System.Int32]1
+$TB_KillProcessesName.Text = [System.String]'notepad, outlook, word'
+$TB_KillProcessesName.add_TextChanged($TB_KillProcessesName_TextChanged)
 #
 #TB_InstallFile
 #
@@ -227,7 +233,7 @@ $R_User.add_Click($R_User_Click)
 #
 $B_create_Intunewin.BackColor = [System.Drawing.Color]::White
 $B_create_Intunewin.Font = (New-Object -TypeName System.Drawing.Font -ArgumentList @([System.String]'Arial',[System.Single]10,[System.Drawing.FontStyle]::Bold,[System.Drawing.GraphicsUnit]::Point,([System.Byte][System.Byte]0)))
-$B_create_Intunewin.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]40,[System.Int32]704))
+$B_create_Intunewin.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]40,[System.Int32]814))
 $B_create_Intunewin.Name = [System.String]'B_create_Intunewin'
 $B_create_Intunewin.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]529,[System.Int32]47))
 $B_create_Intunewin.TabIndex = [System.Int32]6
@@ -254,7 +260,7 @@ $Label9.BackColor = [System.Drawing.Color]::FromArgb(([System.Int32]([System.Byt
 
 $Label9.Font = (New-Object -TypeName System.Drawing.Font -ArgumentList @([System.String]'Tahoma',[System.Single]7))
 $Label9.ForeColor = [System.Drawing.Color]::White
-$Label9.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]253,[System.Int32]886))
+$Label9.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]253,[System.Int32]996))
 $Label9.Name = [System.String]'Label9'
 $Label9.RightToLeft = [System.Windows.Forms.RightToLeft]::No
 $Label9.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]102,[System.Int32]23))
@@ -319,7 +325,7 @@ $TB_editRegistry.Enabled = $false
 $TB_editRegistry.Font = (New-Object -TypeName System.Drawing.Font -ArgumentList @([System.String]'Arial',[System.Single]9))
 $TB_editRegistry.ForeColor = [System.Drawing.SystemColors]::WindowText
 $TB_editRegistry.ImeMode = [System.Windows.Forms.ImeMode]::NoControl
-$TB_editRegistry.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]40,[System.Int32]575))
+$TB_editRegistry.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]40,[System.Int32]685))
 $TB_editRegistry.Name = [System.String]'TB_editRegistry'
 $TB_editRegistry.RightToLeft = [System.Windows.Forms.RightToLeft]::No
 $TB_editRegistry.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]529,[System.Int32]89))
@@ -370,7 +376,7 @@ $CB_editRegistry.BackColor = [System.Drawing.Color]::FromArgb(([System.Int32]([S
 
 $CB_editRegistry.Font = (New-Object -TypeName System.Drawing.Font -ArgumentList @([System.String]'Arial',[System.Single]10))
 $CB_editRegistry.ForeColor = [System.Drawing.Color]::White
-$CB_editRegistry.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]40,[System.Int32]545))
+$CB_editRegistry.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]40,[System.Int32]655))
 $CB_editRegistry.Name = [System.String]'CB_editRegistry'
 $CB_editRegistry.RightToLeft = [System.Windows.Forms.RightToLeft]::No
 $CB_editRegistry.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]152,[System.Int32]24))
@@ -385,7 +391,7 @@ $CB_killProcessesName.BackColor = [System.Drawing.Color]::FromArgb(([System.Int3
 
 $CB_killProcessesName.Font = (New-Object -TypeName System.Drawing.Font -ArgumentList @([System.String]'Arial',[System.Single]10))
 $CB_killProcessesName.ForeColor = [System.Drawing.Color]::White
-$CB_killProcessesName.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]40,[System.Int32]470))
+$CB_killProcessesName.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]40,[System.Int32]580))
 $CB_killProcessesName.Name = [System.String]'CB_killProcessesName'
 $CB_killProcessesName.RightToLeft = [System.Windows.Forms.RightToLeft]::No
 $CB_killProcessesName.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]548,[System.Int32]24))
@@ -396,7 +402,7 @@ $CB_killProcessesName.add_CheckedChanged($CB_killProcessesName_CheckedChanged)
 #
 #PB_ProgressBar
 #
-$PB_ProgressBar.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]40,[System.Int32]789))
+$PB_ProgressBar.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]40,[System.Int32]899))
 $PB_ProgressBar.Name = [System.String]'PB_ProgressBar'
 $PB_ProgressBar.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]529,[System.Int32]23))
 $PB_ProgressBar.Style = [System.Windows.Forms.ProgressBarStyle]::Continuous
@@ -422,7 +428,7 @@ $L_ProgressBarOutputFolder.BackColor = [System.Drawing.Color]::FromArgb(([System
 
 $L_ProgressBarOutputFolder.Font = (New-Object -TypeName System.Drawing.Font -ArgumentList @([System.String]'Arial',[System.Single]10))
 $L_ProgressBarOutputFolder.ForeColor = [System.Drawing.Color]::White
-$L_ProgressBarOutputFolder.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]37,[System.Int32]838))
+$L_ProgressBarOutputFolder.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]37,[System.Int32]948))
 $L_ProgressBarOutputFolder.Name = [System.String]'L_ProgressBarOutputFolder'
 $L_ProgressBarOutputFolder.RightToLeft = [System.Windows.Forms.RightToLeft]::No
 $L_ProgressBarOutputFolder.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]529,[System.Int32]23))
@@ -430,13 +436,39 @@ $L_ProgressBarOutputFolder.TabIndex = [System.Int32]2
 $L_ProgressBarOutputFolder.Text = [System.String]'Please wait while the .intunewin file is being built...'
 $L_ProgressBarOutputFolder.Visible = $false
 #
+#Label1
+#
+$Label1.BackColor = [System.Drawing.Color]::FromArgb(([System.Int32]([System.Byte][System.Byte]14)),([System.Int32]([System.Byte][System.Byte]30)),([System.Int32]([System.Byte][System.Byte]55)))
+
+$Label1.Font = (New-Object -TypeName System.Drawing.Font -ArgumentList @([System.String]'Arial',[System.Single]10))
+$Label1.ForeColor = [System.Drawing.Color]::White
+$Label1.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]40,[System.Int32]472))
+$Label1.Name = [System.String]'Label1'
+$Label1.RightToLeft = [System.Windows.Forms.RightToLeft]::No
+$Label1.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]332,[System.Int32]23))
+$Label1.TabIndex = [System.Int32]2
+$Label1.Text = [System.String]'Uninstall Parameter:'
+#
+#RTB_UninstallParameter
+#
+$RTB_UninstallParameter.BackColor = [System.Drawing.SystemColors]::Window
+$RTB_UninstallParameter.Font = (New-Object -TypeName System.Drawing.Font -ArgumentList @([System.String]'Arial',[System.Single]9))
+$RTB_UninstallParameter.ForeColor = [System.Drawing.SystemColors]::WindowText
+$RTB_UninstallParameter.ImeMode = [System.Windows.Forms.ImeMode]::NoControl
+$RTB_UninstallParameter.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]40,[System.Int32]498))
+$RTB_UninstallParameter.Name = [System.String]'RTB_UninstallParameter'
+$RTB_UninstallParameter.RightToLeft = [System.Windows.Forms.RightToLeft]::No
+$RTB_UninstallParameter.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]529,[System.Int32]62))
+$RTB_UninstallParameter.TabIndex = [System.Int32]3
+$RTB_UninstallParameter.Text = [System.String]''
+#
 #Form1
 #
 $Form1.AutoScaleDimensions = (New-Object -TypeName System.Drawing.SizeF -ArgumentList @([System.Single]120,[System.Single]120))
 $Form1.AutoScaleMode = [System.Windows.Forms.AutoScaleMode]::Dpi
 $Form1.BackColor = [System.Drawing.Color]::FromArgb(([System.Int32]([System.Byte][System.Byte]14)),([System.Int32]([System.Byte][System.Byte]30)),([System.Int32]([System.Byte][System.Byte]55)))
 
-$Form1.ClientSize = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]616,[System.Int32]918))
+$Form1.ClientSize = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]616,[System.Int32]1060))
 $Form1.Controls.Add($PB_ProgressBar)
 $Form1.Controls.Add($CB_shortcutDesktop)
 $Form1.Controls.Add($B_create_Intunewin)
@@ -466,6 +498,8 @@ $Form1.Controls.Add($CB_editRegistry)
 $Form1.Controls.Add($CB_killProcessesName)
 $Form1.Controls.Add($Label4)
 $Form1.Controls.Add($L_ProgressBarOutputFolder)
+$Form1.Controls.Add($Label1)
+$Form1.Controls.Add($RTB_UninstallParameter)
 $Form1.FormBorderStyle = [System.Windows.Forms.FormBorderStyle]::FixedSingle
 $Form1.Icon = ([System.Drawing.Icon]$resources.'$this.Icon')
 $Form1.MaximizeBox = $false
@@ -502,5 +536,7 @@ Add-Member -InputObject $Form1 -Name CB_killProcessesName -Value $CB_killProcess
 Add-Member -InputObject $Form1 -Name PB_ProgressBar -Value $PB_ProgressBar -MemberType NoteProperty
 Add-Member -InputObject $Form1 -Name Label4 -Value $Label4 -MemberType NoteProperty
 Add-Member -InputObject $Form1 -Name L_ProgressBarOutputFolder -Value $L_ProgressBarOutputFolder -MemberType NoteProperty
+Add-Member -InputObject $Form1 -Name Label1 -Value $Label1 -MemberType NoteProperty
+Add-Member -InputObject $Form1 -Name RTB_UninstallParameter -Value $RTB_UninstallParameter -MemberType NoteProperty
 }
 . InitializeComponent

@@ -1,3 +1,5 @@
+$TB_KillProcessesName_TextChanged = {
+}
 $Form1_Load = {
 }
 # Add the necessary assemblies for WPF
@@ -98,6 +100,7 @@ $B_selectFile_Click = {
 
             # Update the RTB_InstallParameter TextBox with the specified text
             $Form1.RTB_InstallParameter.Text = "/qn /norestart REBOOT=ReallySuppress"
+			$Form1.RTB_UninstallParameter.Text = "/qn /norestart REBOOT=ReallySuppress"
         }
 
         # Optionally, you can perform actions with the selected file
@@ -122,33 +125,46 @@ $B_create_Intunewin_Click = {
 		
         # Collect values that have been set
         $packageNameValue = $Form1.TB_PackageName.Text
+		$installParameterValue = $Form1.RTB_InstallParameter.Text
+		$uninstallParameterValue = $Form1.RTB_UninstallParameter.Text
         $packageVersionValue = $Form1.TB_PackageVersion.Text
         $installFileValue = $Form1.TB_InstallFile.Text
-        $killProcessNameValue = $Form1.TB_KillProcessName.Text
+        if($Form1.CB_killProcessesName.Checked -eq $true){
+			$killProcessesNameValue = $Form1.TB_KillProcessesName.Text
+		}else{
+			$killProcessesNameValue = ""
+		}
+		if($Form1.R_System.Checked -eq $true){
+			$installContextValue = $false
+		}else{
+			$installContextValue = $true
+		}
         $installContextValue = $Form1.R_System.Checked
+		# Combine package name and version
+		$fullPackageName = "$packageNameValue $packageVersionValue"
         #$editRegistryValue = $Form1.TB_InstallFile.Text
-        #$editRegistryValue = ZUKÜNFTIG
 
         # Sets values
         $configContentString = @"
-        `$packageName = "$packageNameValue"
-        `$packageVersion = "$packageVersionValue"
-        `$installFile = "$installFileValue"
-        `$killProcessName = "$killProcessNameValue"
-        `$installContext = "$installContextValue"
+`$packageNameValue = "$fullPackageName"
+`$installParameterValue = "$installParameterValue"
+`$uninstallParameterValue = "$uninstallParameterValue"
+`$installFileValue = "$installFileValue"
+`$killProcessesNameValue = "$killProcessesNameValue"
+`$installContextValue = `$$installContextValue
 "@ 
         # Saves content to config.ps1
         $configContentString | Set-Content -Path .\config.ps1 -NoNewline
 		
 		# Copy install.ps1, uninstall.ps1 and config.ps1 to destination folder
 		$Form1.PB_ProgressBar.Value = 0
-		$Form1.PB_ProgressBar.Visible = 1
 		$Form1.L_ProgressBarTitle.Text = "Please wait while the .intunewin file is being built..."
+		$Form1.PB_ProgressBar.Visible = 1
 		$Form1.L_ProgressBarTitle.Visible = 1
 		$Form1.L_ProgressBarOutputFolder.Visible = $false
 		$Form1.L_ProgressBarOutputFolder.Text = ""
-		
-		# START CREATING INSTALL.PS1
+		Start-Sleep -Milliseconds 100
+	<#	# START CREATING INSTALL.PS1
 		$installScriptContent = @'
 ### CNAG Intune Win32 Standard Template
 # Author: Bender, André
@@ -159,17 +175,17 @@ $B_create_Intunewin_Click = {
 
 ### Fill out the variables below
 # replace with package name (Productname)
-$packageName = "$($config.packageName) $($config.packageVersion)"
+$packageName = "{0}"
 # replace with installation parameter (/qn ALLUSERS=1 REBOOT=ReallySuppress)
-$installParameter = $config.installParameter
+$installParameter = ""
 # replace with actual file name and ending (FileName.msi) or (FileName.exe)
-$installFile = $config.installFile
+$installFile = ""
 # enter Process Name without file ending (e.g. Greenshot) that should be killed before installation
-$killProcessName = $config.killProcessName
+$killProcessName = ""
 # 1 for system, 0 for user
-[Bool]$installContext = $config.installContext
+[Bool]$installContext = "1"
 # 1 for yes, 0 for no
-[Bool]$editRegistry = $config.editRegistry
+[Bool]$editRegistry = "1"
 
 ### SET UP $installContext
 # Sets Path_local for Log-Files depening on installContext
@@ -278,10 +294,15 @@ if($editRegistry -eq $false){
 
 Stop-Transcript
 '@		
-# Save the content to install.ps1
-$installScriptContent | Out-File -FilePath "$destinationFolder\install.ps1" -Encoding utf8
 
-		#Copy-Item -Path ".\install.ps1" -Destination (Join-Path $destinationFolder "install.ps1")
+# Insert the values into the script content, before the file gets created
+Write-Host "PackageNameValue ist $packageNameValue"
+$installScriptContent = $installScriptContent -f $packageNameValue
+
+# Save the content to install.ps1
+$installScriptContent | Out-File -FilePath "$destinationFolder\install.ps1" -Encoding utf8 -NoNewline#>
+
+		Copy-Item -Path ".\install.ps1" -Destination (Join-Path $destinationFolder "install.ps1")
 		Start-Sleep -Milliseconds 500
 		$Form1.PB_ProgressBar.Value = 15
 		Copy-Item -Path ".\uninstall.ps1" -Destination (Join-Path $destinationFolder "uninstall.ps1")
@@ -388,6 +409,7 @@ $CB_killProcessesName_CheckedChanged = {
 		$Form1.TB_killProcessesName.Text = ""
 	}else{
 		$Form1.TB_killProcessesName.Enabled = $true
+		$Form1.TB_killProcessesName.Text = ""
 	}
 }
 

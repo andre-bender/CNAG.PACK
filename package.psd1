@@ -1,6 +1,6 @@
 @{
     Root = 'c:\Users\andre\OneDrive\Skripts\CNAG.PACK\form.ps1'
-    OutputPath = 'c:\Users\andre\OneDrive\Skripts\CNAG.PACK\out'
+    OutputPath = 'c:\Users\andre\OneDrive\Skripts\CNAG.PACK\CNAG.PACK EXE'
     Package = @{
         Enabled = $true
         Obfuscate = $false
