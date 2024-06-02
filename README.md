@@ -23,11 +23,6 @@ Easy Packaging:
   - Install command: powershell.exe -NoProfile -ExecutionPolicy Bypass -NoNewWindow -File .\install.ps1
   - Uninstall command: powershell.exe -NoProfile -ExecutionPolicy Bypass -NoNewWindow -File .\uninstall.ps1
    ![image](https://tech.tristantyson.com/assets/images/DeployPowerShellApp/program.png)
- 
-    
-   
-
-
 
 ### Benefits
 
@@ -40,8 +35,8 @@ Easy Packaging:
 
 To get started with CNAG.APP connecT .Intunewin Packager, follow these simple steps:
 
-- Download and Install: Download the latest version of the tool from the releases page.
-- Launch the Application: Open the application and follow the on-screen instructions to select your file and configure settings.
+- Download and Install: Download the folder named "CNAG.PACK EXE".
+- Launch the Application: Open the application "CNAG.PACK.exe" and follow the on-screen instructions to select your file and configure settings.
 - Package and Deploy: Create your .intunewin package and deploy it via Microsoft Intune.
 
 ### Contributing
