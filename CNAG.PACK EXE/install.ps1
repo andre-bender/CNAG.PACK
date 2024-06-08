@@ -78,30 +78,6 @@ if($installFile -like "*.msi") {
         Start-Process 'msiexec.exe' -ArgumentList $arguments -Wait -NoNewWindow
         Write-Host "Calling msiexec successful." -ForegroundColor Green
         Start-Sleep -Seconds 2
-
-        # Check if program (MSI) exists in registry
-        if($installContext -eq "true") {
-            if (Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\$MSIGUID") {
-                Write-Host "Program detection successful. 64-bit Registry path exists." -ForegroundColor Green
-                Write-Host "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\$MSIGUID" -ForegroundColor Green
-            } elseif (Test-Path "HKLM:\Software\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\$MSIGUID"){
-                Write-Host "Program detection successful. 32-bit Registry path exists." -ForegroundColor Green
-                Write-Host "HKLM:\Software\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\$MSIGUID" -ForegroundColor Green
-            } else {
-                Write-Host "Installation failed. Registry could not be detected after msiexec has been called." -ForegroundColor Red
-                Exit 1603
-            }
-        }
-        else{
-            if (Test-Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Uninstall\$MSIGUID") {
-                Write-Host "Program detection successful. 64-bit or 32-bit Registry path exists." -ForegroundColor Green
-                Write-Host "HKCU:\Software\Microsoft\Windows\CurrentVersion\Uninstall\$MSIGUID" -ForegroundColor Green
-            } else {
-                Write-Host "Installation failed. Registry could not be detected after msiexec has been called." -ForegroundColor Red
-                Write-Host "HKCU:\Software\Microsoft\Windows\CurrentVersion\Uninstall\$MSIGUID" -ForegroundColor Red
-                Exit 1603
-            }
-        }
     } catch {
         Write-Host "_____________________________________________________________________" -ForegroundColor Red
         Write-Host "ERROR while installing $PackageName" -ForegroundColor Red
@@ -121,6 +97,30 @@ if($installFile -like "*.msi") {
         Exit 1603
     }
 }
+
+# Check if program (MSI) exists in registry
+<#if($installContext -eq "true") {
+    if (Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\$MSIGUID") {
+        Write-Host "Program detection successful. 64-bit Registry path exists." -ForegroundColor Green
+        Write-Host "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\$MSIGUID" -ForegroundColor Green
+    } elseif (Test-Path "HKLM:\Software\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\$MSIGUID"){
+        Write-Host "Program detection successful. 32-bit Registry path exists." -ForegroundColor Green
+        Write-Host "HKLM:\Software\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\$MSIGUID" -ForegroundColor Green
+    } else {
+        Write-Host "Installation failed. Registry could not be detected after msiexec has been called." -ForegroundColor Red
+        Exit 1603
+    }
+}
+else{ 
+    if (Test-Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Uninstall\$MSIGUID") {
+        Write-Host "Program detection successful. 64-bit or 32-bit Registry path exists." -ForegroundColor Green
+        Write-Host "HKCU:\Software\Microsoft\Windows\CurrentVersion\Uninstall\$MSIGUID" -ForegroundColor Green
+    } else {
+        Write-Host "Installation failed. Registry could not be detected after msiexec has been called." -ForegroundColor Red
+        Write-Host "HKCU:\Software\Microsoft\Windows\CurrentVersion\Uninstall\$MSIGUID" -ForegroundColor Red
+        Exit 1603
+    }
+}  #>
 
 ### SET REGISTRY VALUES IF $editRegistry HAS BEEN SET TO 1
 if($editRegistry -eq $false){

@@ -1,4 +1,3 @@
-
 $TB_KillProcessesName_TextChanged = {
 }
 $Form1_Load = {
@@ -13,6 +12,18 @@ function Select-MSIFile {
     $openFileDialog = New-Object System.Windows.Forms.OpenFileDialog
     $openFileDialog.Filter = "Installer files (*.msi, *.exe)|*.msi;*.exe"
     $openFileDialog.Title = "Select MSI or EXE file"
+	$openFileDialog.Multiselect = $false
+    $openFileDialog.ShowDialog() | Out-Null
+    return $openFileDialog.FileName
+}
+
+# Erstellt eine Funktion, die eine Dialogbox zum Auswählen einer Datei anzeigt
+function Select-Shortcut {
+    $openFileDialog = New-Object System.Windows.Forms.OpenFileDialog
+	$openFileDialog.InitialDirectory = [Environment]::GetFolderPath('Desktop')
+    $openFileDialog.Filter = "Shortcut files (*.lnk)|*.lnk"
+    $openFileDialog.Title = "Select a shortcut file"
+	$openFileDialog.Multiselect = $false
     $openFileDialog.ShowDialog() | Out-Null
     return $openFileDialog.FileName
 }
@@ -100,13 +111,25 @@ $B_selectFile_Click = {
             $Form1.TB_MSIGuid.Text = $msiInfo.GUID
 
             # Update the RTB_InstallParameter TextBox with the specified text
-            $Form1.RTB_InstallParameter.Text = "/qn /norestart REBOOT=ReallySuppress"
+            $Form1.RTB_InstallParameter.Text = "/qn /norestart REBOOT=ReallySuppress ALLUSERS=1"
 			$Form1.RTB_UninstallParameter.Text = "/qn /norestart REBOOT=ReallySuppress"
         }
 
         # Optionally, you can perform actions with the selected file
         Write-Host "Selected file: $selectedFilename"
     }
+}
+
+$B_selectShortcut_Click = {
+	$global:selectedShortcutFilePath = Select-Shortcut
+	if (-not [string]::IsNullOrEmpty($selectedShortcutFilePath)) {
+		$global:selectedShortcutFileName = [System.IO.Path]::GetFileName($selectedShortcutFilePath)
+		$Form1.CB_shortcutDesktop.Enabled = $true
+		$Form1.CB_shortcutStartmenu.Enabled = $true
+        # Extract the filename from the full path
+        #$global:selectedShortcutFile = [System.IO.Path]::GetFileName($selectedShortcutFile)
+		#Write-Host "$selectedShortcutFile"
+	}
 }
 
 $B_create_Intunewin_Click = {
@@ -131,6 +154,7 @@ $B_create_Intunewin_Click = {
         $packageVersionValue = $Form1.TB_PackageVersion.Text
         $installFileValue = $Form1.TB_InstallFile.Text
 		$MSIGUIDValue = $Form1.TB_MSIGUID.Text
+		$shortcutFileValue = $global:selectedShortcutFileName
         if($Form1.CB_killProcessesName.Checked -eq $true){
 			$killProcessesNameValue = $Form1.TB_KillProcessesName.Text
 		}else{
@@ -140,6 +164,16 @@ $B_create_Intunewin_Click = {
 			$installContextValue = $true
 		}else{
 			$installContextValue = $false
+		}
+		if($Form1.CB_shortcutDesktop.Checked -eq $true){
+			$shortcutDesktopValue = $true
+		}else{
+			$shortcutDesktopValue = $false
+		}
+		if($Form1.CB_shortcutStartmenu.Checked -eq $true){
+			$shortcutStartmenuValue = $true
+		}else{
+			$shortcutStartmenuValue = $false
 		}
 		# Combine package name and version
 		$fullPackageName = "$packageNameValue $packageVersionValue"
@@ -154,6 +188,9 @@ $B_create_Intunewin_Click = {
 `$killProcessesNameValue = "$killProcessesNameValue"
 `$installContextValue = `$$installContextValue
 `$MSIGUIDValue = "$MSIGUIDValue"
+`$shortcutFileValue = "$global:selectedShortcutFileName"
+`$shortcutDesktopValue = `$$shortcutDesktopValue
+`$shortcutStartmenuValue = `$$shortcutStartmenuValue
 "@ 
         # Saves content to config.ps1
         $configContentString | Set-Content -Path .\config.ps1 -NoNewline
@@ -314,10 +351,27 @@ $installScriptContent | Out-File -FilePath "$destinationFolder\install.ps1" -Enc
 		Start-Sleep -Seconds 1
 		$Form1.PB_ProgressBar.Value = 50
 		
-		# Copy install file to destination folder
-        Copy-Item -Path $global:selectedFilePath -Destination $destinationFolder
-		Start-Sleep 5
+		# Copy if shortcut file has been selected to destination folder
+    	if (-not [string]::IsNullOrEmpty($global:selectedShortcutFilePath)) {
+			Copy-Item -Path $global:selectedShortcutFilePath -Destination $destinationFolder
+			Write-Host "Shortcut file: $selectedShortcutFilePath"
+		}
 		
+		# Copy install file to destination folder and wait for it to complete
+		Copy-Item -Path $global:selectedFilePath -Destination $destinationFolder -Force
+		$destinationFile = Join-Path -Path $destinationFolder -ChildPath $selectedFileName
+        $previousSize = 0
+        $currentSize = (Get-Item -Path $destinationFile).Length
+		Write-Host "Die Datei am Zielort ist: $destinationFile"
+		
+		# Wait to complete copying
+        while ($previousSize -ne $currentSize) {
+            Start-Sleep -Milliseconds 500
+            $previousSize = $currentSize
+            $currentSize = (Get-Item -Path $destinationFile).Length
+			Write-Host "Actual file-size: $currentSize"
+        }
+
 		# Check if the files exist in the destination folder
 		$installScriptExists = Test-Path (Join-Path $destinationFolder "install.ps1")
 		$uninstallScriptExists = Test-Path (Join-Path $destinationFolder "uninstall.ps1")
@@ -329,8 +383,8 @@ $installScriptContent | Out-File -FilePath "$destinationFolder\install.ps1" -Enc
 		    Write-Host "Files copied successfully to $destinationFolder."
 			$global:selectedFileDirectory = [System.IO.Path]::GetDirectoryName($global:selectedFilePath)
 			Start-Process -FilePath ".\IntuneWinAppUtil.exe" -ArgumentList "-c `"$destinationFolder`" -s `"$global:selectedFilename`" -o `"$destinationFolder`" -q" -Wait -WindowStyle Hidden
-			Write-Host "Checking if $intunewinFilePath exists..."
 			$intunewinFilePath = Join-Path $destinationFolder ($global:selectedFilename.Replace(".msi", "").Replace(".exe", "") + ".intunewin")
+			Write-Host "Checking if $intunewinFilePath exists..."
 		}
 		else {
 		    Write-Host "Failed to copy files to $destinationFolder."
@@ -362,18 +416,20 @@ $installScriptContent | Out-File -FilePath "$destinationFolder\install.ps1" -Enc
 		} 
 }
 
-
 $R_System_Click = {
+$Form1.CB_shortcutStartmenu.Visible = $true
+$Form1.CB_shortcutDesktop.Visible = $true
     if ($Form1.TB_installFile.Text -match '\.msi$') {
         # Retrieve the current text
         $currentText = $Form1.RTB_InstallParameter.Text
-
         if ($R_System.Checked -eq $true) {
+			
             # Add "ALLUSERS=1" if it's not already in the text
             if ($currentText -notmatch "ALLUSERS=1") {
                 $currentText += " ALLUSERS=1"
             }
         } else {
+			$Form1.CB_shortcutStartmenu.Enabled = $false
             # Remove "ALLUSERS=1" if it's in the text
             $currentText = $currentText -replace "\s*ALLUSERS=1", ""
         }
@@ -383,6 +439,8 @@ $R_System_Click = {
 }
 
 $R_User_Click = {
+$Form1.CB_shortcutStartmenu.Visible = $false
+$Form1.CB_shortcutStartmenu.Checked = $false
     if ($Form1.TB_installFile.Text -match '\.msi$') {
         # Retrieve the current text
         $currentText = $Form1.RTB_InstallParameter.Text

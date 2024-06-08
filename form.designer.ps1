@@ -31,6 +31,7 @@ $Form1 = New-Object -TypeName System.Windows.Forms.Form
 [System.Windows.Forms.Label]$Label1 = $null
 [System.Windows.Forms.RichTextBox]$RTB_UninstallParameter = $null
 [System.Windows.Forms.Button]$B_Clipboard = $null
+[System.Windows.Forms.Button]$B_selectShortcut = $null
 function InitializeComponent
 {
 $resources = . (Join-Path $PSScriptRoot 'form.resources.ps1')
@@ -66,6 +67,7 @@ $L_ProgressBarOutputFolder = (New-Object -TypeName System.Windows.Forms.Label)
 $Label1 = (New-Object -TypeName System.Windows.Forms.Label)
 $RTB_UninstallParameter = (New-Object -TypeName System.Windows.Forms.RichTextBox)
 $B_Clipboard = (New-Object -TypeName System.Windows.Forms.Button)
+$B_selectShortcut = (New-Object -TypeName System.Windows.Forms.Button)
 $Form1.SuspendLayout()
 #
 #L_CNAGPACK
@@ -123,7 +125,7 @@ $Label5.ForeColor = [System.Drawing.Color]::White
 $Label5.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]40,[System.Int32]370))
 $Label5.Name = [System.String]'Label5'
 $Label5.RightToLeft = [System.Windows.Forms.RightToLeft]::No
-$Label5.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]332,[System.Int32]23))
+$Label5.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]210,[System.Int32]23))
 $Label5.TabIndex = [System.Int32]2
 $Label5.Text = [System.String]'Install Parameter:'
 #
@@ -191,12 +193,14 @@ $B_selectFile.add_Click($B_selectFile_Click)
 #
 #R_System
 #
+$R_System.Checked = $true
 $R_System.Font = (New-Object -TypeName System.Drawing.Font -ArgumentList @([System.String]'Arial',[System.Single]10,[System.Drawing.FontStyle]::Regular,[System.Drawing.GraphicsUnit]::Point,([System.Byte][System.Byte]0)))
 $R_System.ForeColor = [System.Drawing.Color]::White
-$R_System.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]40,[System.Int32]327))
+$R_System.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]40,[System.Int32]324))
 $R_System.Name = [System.String]'R_System'
 $R_System.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]86,[System.Int32]24))
 $R_System.TabIndex = [System.Int32]5
+$R_System.TabStop = $true
 $R_System.Text = [System.String]'System'
 $R_System.UseVisualStyleBackColor = $true
 $R_System.add_Click($R_System_Click)
@@ -207,7 +211,7 @@ $Label7.BackColor = [System.Drawing.Color]::FromArgb(([System.Int32]([System.Byt
 
 $Label7.Font = (New-Object -TypeName System.Drawing.Font -ArgumentList @([System.String]'Arial',[System.Single]10))
 $Label7.ForeColor = [System.Drawing.Color]::White
-$Label7.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]135,[System.Int32]329))
+$Label7.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]135,[System.Int32]326))
 $Label7.Name = [System.String]'Label7'
 $Label7.RightToLeft = [System.Windows.Forms.RightToLeft]::No
 $Label7.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]31,[System.Int32]23))
@@ -218,15 +222,13 @@ $Label7.Text = [System.String]'or'
 #
 $R_User.BackColor = [System.Drawing.Color]::FromArgb(([System.Int32]([System.Byte][System.Byte]14)),([System.Int32]([System.Byte][System.Byte]30)),([System.Int32]([System.Byte][System.Byte]55)))
 
-$R_User.Checked = $true
 $R_User.Font = (New-Object -TypeName System.Drawing.Font -ArgumentList @([System.String]'Arial',[System.Single]10))
 $R_User.ForeColor = [System.Drawing.Color]::White
-$R_User.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]180,[System.Int32]327))
+$R_User.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]180,[System.Int32]324))
 $R_User.Name = [System.String]'R_User'
 $R_User.RightToLeft = [System.Windows.Forms.RightToLeft]::No
 $R_User.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]86,[System.Int32]24))
 $R_User.TabIndex = [System.Int32]5
-$R_User.TabStop = $true
 $R_User.Text = [System.String]'User'
 $R_User.UseVisualStyleBackColor = $true
 $R_User.add_Click($R_User_Click)
@@ -339,37 +341,41 @@ $Label13.BackColor = [System.Drawing.Color]::FromArgb(([System.Int32]([System.By
 
 $Label13.Font = (New-Object -TypeName System.Drawing.Font -ArgumentList @([System.String]'Arial',[System.Single]10))
 $Label13.ForeColor = [System.Drawing.Color]::White
-$Label13.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]292,[System.Int32]299))
+$Label13.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]311,[System.Int32]299))
 $Label13.Name = [System.String]'Label13'
 $Label13.RightToLeft = [System.Windows.Forms.RightToLeft]::No
-$Label13.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]332,[System.Int32]23))
+$Label13.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]136,[System.Int32]23))
 $Label13.TabIndex = [System.Int32]2
 $Label13.Text = [System.String]'Create Shortcut:'
 #
 #CB_shortcutDesktop
 #
+$CB_shortcutDesktop.BackColor = [System.Drawing.Color]::FromArgb(([System.Int32]([System.Byte][System.Byte]14)),([System.Int32]([System.Byte][System.Byte]30)),([System.Int32]([System.Byte][System.Byte]55)))
+
+$CB_shortcutDesktop.Enabled = $false
 $CB_shortcutDesktop.Font = (New-Object -TypeName System.Drawing.Font -ArgumentList @([System.String]'Arial',[System.Single]10,[System.Drawing.FontStyle]::Regular,[System.Drawing.GraphicsUnit]::Point,([System.Byte][System.Byte]0)))
 $CB_shortcutDesktop.ForeColor = [System.Drawing.Color]::White
-$CB_shortcutDesktop.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]297,[System.Int32]329))
+$CB_shortcutDesktop.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]315,[System.Int32]326))
 $CB_shortcutDesktop.Name = [System.String]'CB_shortcutDesktop'
 $CB_shortcutDesktop.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]104,[System.Int32]24))
 $CB_shortcutDesktop.TabIndex = [System.Int32]7
 $CB_shortcutDesktop.Text = [System.String]'Desktop'
-$CB_shortcutDesktop.UseVisualStyleBackColor = $true
+$CB_shortcutDesktop.UseVisualStyleBackColor = $false
 #
 #CB_shortcutStartmenu
 #
 $CB_shortcutStartmenu.BackColor = [System.Drawing.Color]::FromArgb(([System.Int32]([System.Byte][System.Byte]14)),([System.Int32]([System.Byte][System.Byte]30)),([System.Int32]([System.Byte][System.Byte]55)))
 
+$CB_shortcutStartmenu.Enabled = $false
 $CB_shortcutStartmenu.Font = (New-Object -TypeName System.Drawing.Font -ArgumentList @([System.String]'Arial',[System.Single]10))
 $CB_shortcutStartmenu.ForeColor = [System.Drawing.Color]::White
-$CB_shortcutStartmenu.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]403,[System.Int32]329))
+$CB_shortcutStartmenu.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]315,[System.Int32]347))
 $CB_shortcutStartmenu.Name = [System.String]'CB_shortcutStartmenu'
 $CB_shortcutStartmenu.RightToLeft = [System.Windows.Forms.RightToLeft]::No
 $CB_shortcutStartmenu.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]124,[System.Int32]24))
 $CB_shortcutStartmenu.TabIndex = [System.Int32]7
 $CB_shortcutStartmenu.Text = [System.String]'Startmenu'
-$CB_shortcutStartmenu.UseVisualStyleBackColor = $true
+$CB_shortcutStartmenu.UseVisualStyleBackColor = $false
 #
 #CB_editRegistry
 #
@@ -474,6 +480,21 @@ $B_Clipboard.TabIndex = [System.Int32]9
 $B_Clipboard.UseVisualStyleBackColor = $false
 $B_Clipboard.add_Click($B_Clipboard_Click)
 #
+#B_selectShortcut
+#
+$B_selectShortcut.BackColor = [System.Drawing.Color]::White
+$B_selectShortcut.Font = (New-Object -TypeName System.Drawing.Font -ArgumentList @([System.String]'Arial',[System.Single]10))
+$B_selectShortcut.ForeColor = [System.Drawing.Color]::FromArgb(([System.Int32]([System.Byte][System.Byte]0)),([System.Int32]([System.Byte][System.Byte]0)),([System.Int32]([System.Byte][System.Byte]0)))
+
+$B_selectShortcut.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]453,[System.Int32]293))
+$B_selectShortcut.Name = [System.String]'B_selectShortcut'
+$B_selectShortcut.RightToLeft = [System.Windows.Forms.RightToLeft]::No
+$B_selectShortcut.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]113,[System.Int32]29))
+$B_selectShortcut.TabIndex = [System.Int32]4
+$B_selectShortcut.Text = [System.String]'select'
+$B_selectShortcut.UseVisualStyleBackColor = $false
+$B_selectShortcut.add_Click($B_selectShortcut_Click)
+#
 #Form1
 #
 $Form1.AutoScaleDimensions = (New-Object -TypeName System.Drawing.SizeF -ArgumentList @([System.Single]120,[System.Single]120))
@@ -513,8 +534,8 @@ $Form1.Controls.Add($Label4)
 $Form1.Controls.Add($L_ProgressBarOutputFolder)
 $Form1.Controls.Add($Label1)
 $Form1.Controls.Add($RTB_UninstallParameter)
+$Form1.Controls.Add($B_selectShortcut)
 $Form1.FormBorderStyle = [System.Windows.Forms.FormBorderStyle]::FixedSingle
-$Form1.Icon = ([System.Drawing.Icon]$resources.'$this.Icon')
 $Form1.MaximizeBox = $false
 $Form1.Text = [System.String]'CNAG.PACK - connecT .Intunewin Packager'
 $Form1.add_Load($Form1_Load)
@@ -552,5 +573,6 @@ Add-Member -InputObject $Form1 -Name L_ProgressBarOutputFolder -Value $L_Progres
 Add-Member -InputObject $Form1 -Name Label1 -Value $Label1 -MemberType NoteProperty
 Add-Member -InputObject $Form1 -Name RTB_UninstallParameter -Value $RTB_UninstallParameter -MemberType NoteProperty
 Add-Member -InputObject $Form1 -Name B_Clipboard -Value $B_Clipboard -MemberType NoteProperty
+Add-Member -InputObject $Form1 -Name B_selectShortcut -Value $B_selectShortcut -MemberType NoteProperty
 }
 . InitializeComponent

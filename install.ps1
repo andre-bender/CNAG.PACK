@@ -15,6 +15,9 @@ if (Test-Path -Path ".\config.ps1") {
     [Bool]$installContext = $installContextValue #0 (false) for user, 1 (true) for system
     [Bool]$editRegistry = $false
     $MSIGUID = $MSIGUIDValue
+    $shortcutFile = $shortcutFileValue
+    [Bool]$shortcutDesktop = $shortcutDesktopValue
+    [Bool]$shortcutStartmenu = $shortcutStartmenuValue
 
     Write-Host "Variables have been set." -ForegroundColor Green
 
@@ -124,7 +127,7 @@ else{
 
 ### SET REGISTRY VALUES IF $editRegistry HAS BEEN SET TO 1
 if($editRegistry -eq $false){
-    Write-Host "editRegistry has NOT been setup. Skipping this part..."
+    Write-Host "editRegistry has NOT been setup. Skipping this part..." -ForegroundColor Yellow
 }else{
     try{
     Write-Host "editRegistry has been setup. Registry values will be set." -ForegroundColor Yellow
@@ -143,6 +146,35 @@ if($editRegistry -eq $false){
     Write-Host "ERROR while setting registry keys" -ForegroundColor Red
     Write-Host "$_"
     Exit 1603
+    }
+}
+
+### SET SHORTCUT IF FILE EXISTS
+if(($shortcutFile -ne $null -or $shortcutFile -ne "") -and $shortcutDesktop -eq $true -or $shortcutStartmenu -eq $true){
+    try {
+        if($installContext -eq $true){
+            # Check if shortcutDesktop is true, then set startmenu shortcut
+            if($shortcutDesktop-eq $true){
+                # Copy file to public desktop if installContext = SYSTEM
+                $publicDesktop = [Environment]::GetFolderPath("CommonDesktopDirectory")
+                Copy-Item -Path ".\$shortcutFile" -Destination "$publicDesktop" -Force
+                Write-Host "Desktop Shortcut has been saved in $publicDesktop" -ForegroundColor Green
+            }
+            # Check if shortcutStartmenu is true, then set startmenu shortcut
+            if($shortcutStartmenu -eq $true){
+                $allUsersStartMenu = [Environment]::GetFolderPath("CommonStartMenu")
+                Copy-Item -Path ".\$shortcutFile" -Destination "$allUsersStartMenu" -Force
+                Write-Host "Startmenu Shortcut has been saved in $publicDesktop" -ForegroundColor Green 
+            }
+        }else{
+            # Copy file to user desktop if installContext = USER
+            $currentDesktop = [Environment]::GetFolderPath("Desktop")
+            Copy-Item -Path ".\$shortcutFile" -Destination "$currentDesktop" -Force
+            Write-Host "Shortcut has been saved in $currentDesktop" -ForegroundColor Green
+        }
+    }
+    catch {
+        Write-Host "Couldn't set shortcut file." -ForegroundColor Red
     }
 }
 
