@@ -551,18 +551,22 @@ $TB_registryPath.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList 
 $TB_registryPath.TabIndex = [System.Int32]12
 $TB_registryPath.Text = [System.String]'SOFTWARE\YOURPATH'
 #
-#Label20
+#B_registryRemove
 #
-$Label20.BackColor = [System.Drawing.Color]::FromArgb(([System.Int32]([System.Byte][System.Byte]14)),([System.Int32]([System.Byte][System.Byte]30)),([System.Int32]([System.Byte][System.Byte]55)))
+$B_registryRemove.BackColor = [System.Drawing.Color]::White
+$B_registryRemove.Cursor = [System.Windows.Forms.Cursors]::Hand
+$B_registryRemove.Enabled = $false
+$B_registryRemove.Font = (New-Object -TypeName System.Drawing.Font -ArgumentList @([System.String]'Arial',[System.Single]10))
+$B_registryRemove.ForeColor = [System.Drawing.Color]::FromArgb(([System.Int32]([System.Byte][System.Byte]0)),([System.Int32]([System.Byte][System.Byte]0)),([System.Int32]([System.Byte][System.Byte]0)))
 
-$Label20.Font = (New-Object -TypeName System.Drawing.Font -ArgumentList @([System.String]'Arial',[System.Single]10))
-$Label20.ForeColor = [System.Drawing.Color]::White
-$Label20.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]35,[System.Int32]790))
-$Label20.Name = [System.String]'Label20'
-$Label20.RightToLeft = [System.Windows.Forms.RightToLeft]::No
-$Label20.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]91,[System.Int32]23))
-$Label20.TabIndex = [System.Int32]2
-$Label20.Text = [System.String]'Path:'
+$B_registryRemove.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]482,[System.Int32]908))
+$B_registryRemove.Name = [System.String]'B_registryRemove'
+$B_registryRemove.RightToLeft = [System.Windows.Forms.RightToLeft]::No
+$B_registryRemove.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]87,[System.Int32]25))
+$B_registryRemove.TabIndex = [System.Int32]11
+$B_registryRemove.Text = [System.String]'Remove'
+$B_registryRemove.UseVisualStyleBackColor = $false
+$B_registryRemove.add_Click($B_registryRemove_Click)
 #
 #Label23
 #
