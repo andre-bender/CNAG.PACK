@@ -30,6 +30,7 @@ $Form1 = New-Object -TypeName System.Windows.Forms.Form
 [System.Windows.Forms.Label]$L_ProgressBarOutputFolder = $null
 [System.Windows.Forms.Label]$Label1 = $null
 [System.Windows.Forms.RichTextBox]$RTB_UninstallParameter = $null
+[System.Windows.Forms.Button]$B_Clipboard = $null
 function InitializeComponent
 {
 $resources = . (Join-Path $PSScriptRoot 'form.resources.ps1')
@@ -64,6 +65,7 @@ $Label4 = (New-Object -TypeName System.Windows.Forms.Label)
 $L_ProgressBarOutputFolder = (New-Object -TypeName System.Windows.Forms.Label)
 $Label1 = (New-Object -TypeName System.Windows.Forms.Label)
 $RTB_UninstallParameter = (New-Object -TypeName System.Windows.Forms.RichTextBox)
+$B_Clipboard = (New-Object -TypeName System.Windows.Forms.Button)
 $Form1.SuspendLayout()
 #
 #L_CNAGPACK
@@ -308,14 +310,13 @@ $Label11.Text = [System.String]'MSI GUID:'
 #TB_MSIGUID
 #
 $TB_MSIGUID.BackColor = [System.Drawing.SystemColors]::Window
-$TB_MSIGUID.Font = (New-Object -TypeName System.Drawing.Font -ArgumentList @([System.String]'Arial',[System.Single]10))
+$TB_MSIGUID.Font = (New-Object -TypeName System.Drawing.Font -ArgumentList @([System.String]'Arial',[System.Single]9,[System.Drawing.FontStyle]::Regular,[System.Drawing.GraphicsUnit]::Point,([System.Byte][System.Byte]0)))
 $TB_MSIGUID.ForeColor = [System.Drawing.SystemColors]::WindowText
-$TB_MSIGUID.ImeMode = [System.Windows.Forms.ImeMode]::NoControl
 $TB_MSIGUID.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]40,[System.Int32]253))
 $TB_MSIGUID.Name = [System.String]'TB_MSIGUID'
 $TB_MSIGUID.ReadOnly = $true
 $TB_MSIGUID.RightToLeft = [System.Windows.Forms.RightToLeft]::No
-$TB_MSIGUID.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]388,[System.Int32]27))
+$TB_MSIGUID.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]350,[System.Int32]25))
 $TB_MSIGUID.TabIndex = [System.Int32]1
 #
 #TB_editRegistry
@@ -396,7 +397,7 @@ $CB_killProcessesName.Name = [System.String]'CB_killProcessesName'
 $CB_killProcessesName.RightToLeft = [System.Windows.Forms.RightToLeft]::No
 $CB_killProcessesName.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]548,[System.Int32]24))
 $CB_killProcessesName.TabIndex = [System.Int32]7
-$CB_killProcessesName.Text = [System.String]'Kill Processes Name (separate with commas)'
+$CB_killProcessesName.Text = [System.String]'Kill Processes Name (separate with comma)'
 $CB_killProcessesName.UseVisualStyleBackColor = $true
 $CB_killProcessesName.add_CheckedChanged($CB_killProcessesName_CheckedChanged)
 #
@@ -462,13 +463,25 @@ $RTB_UninstallParameter.Size = (New-Object -TypeName System.Drawing.Size -Argume
 $RTB_UninstallParameter.TabIndex = [System.Int32]3
 $RTB_UninstallParameter.Text = [System.String]''
 #
+#B_Clipboard
+#
+$B_Clipboard.BackColor = [System.Drawing.Color]::White
+$B_Clipboard.Image = ([System.Drawing.Image]$resources.'B_Clipboard.Image')
+$B_Clipboard.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]396,[System.Int32]253))
+$B_Clipboard.Name = [System.String]'B_Clipboard'
+$B_Clipboard.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]32,[System.Int32]27))
+$B_Clipboard.TabIndex = [System.Int32]9
+$B_Clipboard.UseVisualStyleBackColor = $false
+$B_Clipboard.add_Click($B_Clipboard_Click)
+#
 #Form1
 #
 $Form1.AutoScaleDimensions = (New-Object -TypeName System.Drawing.SizeF -ArgumentList @([System.Single]120,[System.Single]120))
 $Form1.AutoScaleMode = [System.Windows.Forms.AutoScaleMode]::Dpi
 $Form1.BackColor = [System.Drawing.Color]::FromArgb(([System.Int32]([System.Byte][System.Byte]14)),([System.Int32]([System.Byte][System.Byte]30)),([System.Int32]([System.Byte][System.Byte]55)))
 
-$Form1.ClientSize = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]616,[System.Int32]1060))
+$Form1.ClientSize = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]616,[System.Int32]1026))
+$Form1.Controls.Add($B_Clipboard)
 $Form1.Controls.Add($PB_ProgressBar)
 $Form1.Controls.Add($CB_shortcutDesktop)
 $Form1.Controls.Add($B_create_Intunewin)
@@ -538,5 +551,6 @@ Add-Member -InputObject $Form1 -Name Label4 -Value $Label4 -MemberType NotePrope
 Add-Member -InputObject $Form1 -Name L_ProgressBarOutputFolder -Value $L_ProgressBarOutputFolder -MemberType NoteProperty
 Add-Member -InputObject $Form1 -Name Label1 -Value $Label1 -MemberType NoteProperty
 Add-Member -InputObject $Form1 -Name RTB_UninstallParameter -Value $RTB_UninstallParameter -MemberType NoteProperty
+Add-Member -InputObject $Form1 -Name B_Clipboard -Value $B_Clipboard -MemberType NoteProperty
 }
 . InitializeComponent

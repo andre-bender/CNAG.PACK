@@ -1,3 +1,4 @@
+
 $TB_KillProcessesName_TextChanged = {
 }
 $Form1_Load = {
@@ -129,17 +130,17 @@ $B_create_Intunewin_Click = {
 		$uninstallParameterValue = $Form1.RTB_UninstallParameter.Text
         $packageVersionValue = $Form1.TB_PackageVersion.Text
         $installFileValue = $Form1.TB_InstallFile.Text
+		$MSIGUIDValue = $Form1.TB_MSIGUID.Text
         if($Form1.CB_killProcessesName.Checked -eq $true){
 			$killProcessesNameValue = $Form1.TB_KillProcessesName.Text
 		}else{
 			$killProcessesNameValue = ""
 		}
 		if($Form1.R_System.Checked -eq $true){
-			$installContextValue = $false
-		}else{
 			$installContextValue = $true
+		}else{
+			$installContextValue = $false
 		}
-        $installContextValue = $Form1.R_System.Checked
 		# Combine package name and version
 		$fullPackageName = "$packageNameValue $packageVersionValue"
         #$editRegistryValue = $Form1.TB_InstallFile.Text
@@ -152,6 +153,7 @@ $B_create_Intunewin_Click = {
 `$installFileValue = "$installFileValue"
 `$killProcessesNameValue = "$killProcessesNameValue"
 `$installContextValue = `$$installContextValue
+`$MSIGUIDValue = "$MSIGUIDValue"
 "@ 
         # Saves content to config.ps1
         $configContentString | Set-Content -Path .\config.ps1 -NoNewline
@@ -411,6 +413,10 @@ $CB_killProcessesName_CheckedChanged = {
 		$Form1.TB_killProcessesName.Enabled = $true
 		$Form1.TB_killProcessesName.Text = ""
 	}
+}
+
+$B_Clipboard_Click = {
+	[System.Windows.Forms.Clipboard]::SetText($Form1.TB_MSIGUID.Text)
 }
 
 Add-Type -AssemblyName System.Windows.Forms
