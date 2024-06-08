@@ -1,6 +1,7 @@
-$TB_KillProcessesName_TextChanged = {
-}
 $Form1_Load = {
+}
+
+$TB_KillProcessesName_TextChanged = {
 }
 # Add the necessary assemblies for WPF
 Add-Type -AssemblyName PresentationCore,PresentationFramework,WindowsBase,System.Windows.Forms
@@ -132,6 +133,21 @@ $B_selectShortcut_Click = {
 	}
 }
 
+$B_registryAdd_Click = {
+	$registryAddValue = $Form1.TB_registryHKEY.Text + $Form1.TB_registryPath.Text + " | " + $Form1.TB_registryKeyName.Text + " | " + $Form1.TB_registryKeyValue.Text
+	if($Form1.R_DWORD.Checked -eq $true){
+		$registryAddValue += " | DWORD"
+	}else{
+		$registryAddValue += " | REG_SZ"	
+	}
+	$LB_registryKeys.Items.Add($registryAddValue)
+	Write-Host "Registry Value: $registryAddValue"
+}
+
+$B_registryRemove_Click = {
+	$Form1.LB_registryKeys.Items.RemoveAt($Form1.LB_registryKeys.SelectedIndex)
+}
+
 $B_create_Intunewin_Click = {
     # Prompt user to select destination folder using SaveFileDialog
     $folderBrowser = New-Object System.Windows.Forms.SaveFileDialog
@@ -175,9 +191,14 @@ $B_create_Intunewin_Click = {
 		}else{
 			$shortcutStartmenuValue = $false
 		}
+		# Collect Listbox values from registry
+		$registryListValue = @()
+		foreach($registryKey in $Form1.LB_registryKeys.Items){
+			$registryListValue += $registryKey			
+		}
+		$registryListValueString = $registryListValue -join "; "
 		# Combine package name and version
 		$fullPackageName = "$packageNameValue $packageVersionValue"
-        #$editRegistryValue = $Form1.TB_InstallFile.Text
 
         # Sets values
         $configContentString = @"
@@ -191,6 +212,8 @@ $B_create_Intunewin_Click = {
 `$shortcutFileValue = "$global:selectedShortcutFileName"
 `$shortcutDesktopValue = `$$shortcutDesktopValue
 `$shortcutStartmenuValue = `$$shortcutStartmenuValue
+`$killProcessesNameValue = "$killProcessesNameValue"
+`$registryListValueString = "$registryListValueString"
 "@ 
         # Saves content to config.ps1
         $configContentString | Set-Content -Path .\config.ps1 -NoNewline
@@ -419,6 +442,10 @@ $installScriptContent | Out-File -FilePath "$destinationFolder\install.ps1" -Enc
 $R_System_Click = {
 $Form1.CB_shortcutStartmenu.Visible = $true
 $Form1.CB_shortcutDesktop.Visible = $true
+$Form1.TB_registryHKEY.Text = "HKLM:\"
+$Form1.L_createShortcut.Visible = $true
+$Form1.B_selectShortcut.Visible = $true
+$Form1.CB_shortcutDesktop.Visible = $true
     if ($Form1.TB_installFile.Text -match '\.msi$') {
         # Retrieve the current text
         $currentText = $Form1.RTB_InstallParameter.Text
@@ -441,6 +468,10 @@ $Form1.CB_shortcutDesktop.Visible = $true
 $R_User_Click = {
 $Form1.CB_shortcutStartmenu.Visible = $false
 $Form1.CB_shortcutStartmenu.Checked = $false
+$Form1.TB_registryHKEY.Text = "HKCU:\"
+$Form1.L_createShortcut.Visible = $false
+$Form1.B_selectShortcut.Visible = $false
+$Form1.CB_shortcutDesktop.Visible = $false
     if ($Form1.TB_installFile.Text -match '\.msi$') {
         # Retrieve the current text
         $currentText = $Form1.RTB_InstallParameter.Text
@@ -454,12 +485,39 @@ $Form1.CB_shortcutStartmenu.Checked = $false
         }
 }
 
+$R_DWORD_Click = {
+	$Form1.TB_registryKeyValue.Text = "0x12345678"
+}
+
+$R_REGSZ_Click = {
+	$Form1.TB_registryKeyValue.Text = ""
+}
+
 $CB_editRegistry_CheckedChanged = {
 	if($Form1.CB_editRegistry.Checked -eq $false){
-		$Form1.TB_editRegistry.Enabled = $false
-		$Form1.TB_editRegistry.Text = ""
+		$Form1.LB_registryKeys.Enabled = $false
+		$Form1.TB_registryPath.Enabled = $false
+		$Form1.TB_registryKeyName.Enabled = $false
+		$Form1.TB_registryKeyValue.Enabled = $false
+		$Form1.TB_registryHKEY.Enabled = $false
+		$Form1.B_registryAdd.Enabled = $false
+		$Form1.B_registryRemove.Enabled = $false
+		$Form1.R_DWORD.Enabled = $false
+		$Form1.R_REGSZ.Enabled = $false
+
 	}else{
-		$Form1.TB_editRegistry.Enabled = $true
+		$Form1.LB_registryKeys.Enabled = $true
+		$Form1.TB_registryPath.Enabled = $true
+		$Form1.TB_registryKeyName.Enabled = $true
+		$Form1.TB_registryKeyValue.Enabled = $true
+		$Form1.TB_registryPath.Text = ""
+		$Form1.TB_registryKeyName.Text = ""
+		$Form1.TB_registryKeyValue.Text = ""
+		$Form1.TB_registryHKEY.Enabled = $true
+		$Form1.B_registryAdd.Enabled = $true
+		$Form1.B_registryRemove.Enabled = $true
+		$Form1.R_DWORD.Enabled = $true
+		$Form1.R_REGSZ.Enabled = $true
 	}
 }
 
