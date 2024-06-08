@@ -1,4 +1,4 @@
-﻿### CNAG.APP - connecT .intunewin Packager for Win32 Apps
+### CNAG.APP - connecT .intunewin Packager for Win32 Apps
 ### Check GitHub for updates or report issues: https://github.com/andre-bender/CNAG.PACK
 
 # Check if config.ps1 exists
@@ -91,7 +91,6 @@ if($installFile -like "*.msi"){
         Write-Host "ERROR while installing $PackageName" -ForegroundColor Red
         Write-Host "$_"
         Exit 1603
-        }
     }
 else{
     try {
