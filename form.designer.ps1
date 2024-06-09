@@ -35,18 +35,17 @@ $Form1 = New-Object -TypeName System.Windows.Forms.Form
 [System.Windows.Forms.Button]$B_registryAdd = $null
 [System.Windows.Forms.TextBox]$TB_registryPath = $null
 [System.Windows.Forms.Button]$B_registryRemove = $null
-[System.Windows.Forms.Label]$Label20 = $null
 [System.Windows.Forms.Label]$Label23 = $null
-[System.Windows.Forms.Label]$Label21 = $null
 [System.Windows.Forms.Label]$Label22 = $null
 [System.Windows.Forms.TextBox]$TB_registryKeyValue = $null
 [System.Windows.Forms.TextBox]$TB_registryKeyName = $null
-[System.Windows.Forms.Panel]$Panel1 = $null
 [System.Windows.Forms.RadioButton]$R_REGSZ = $null
 [System.Windows.Forms.RadioButton]$R_DWORD = $null
 [System.Windows.Forms.TextBox]$TB_registryHKEY = $null
 [System.Windows.Forms.Label]$Label24 = $null
 [System.Windows.Forms.Panel]$Panel2 = $null
+[System.Windows.Forms.Label]$Label2 = $null
+[System.Windows.Forms.Panel]$Panel1 = $null
 function InitializeComponent
 {
 $resources = . (Join-Path $PSScriptRoot 'form.resources.ps1')
@@ -86,20 +85,19 @@ $LB_registryKeys = (New-Object -TypeName System.Windows.Forms.ListBox)
 $B_registryAdd = (New-Object -TypeName System.Windows.Forms.Button)
 $TB_registryPath = (New-Object -TypeName System.Windows.Forms.TextBox)
 $B_registryRemove = (New-Object -TypeName System.Windows.Forms.Button)
-$Label20 = (New-Object -TypeName System.Windows.Forms.Label)
 $Label23 = (New-Object -TypeName System.Windows.Forms.Label)
-$Label21 = (New-Object -TypeName System.Windows.Forms.Label)
 $Label22 = (New-Object -TypeName System.Windows.Forms.Label)
 $TB_registryKeyValue = (New-Object -TypeName System.Windows.Forms.TextBox)
 $TB_registryKeyName = (New-Object -TypeName System.Windows.Forms.TextBox)
-$Panel1 = (New-Object -TypeName System.Windows.Forms.Panel)
 $R_REGSZ = (New-Object -TypeName System.Windows.Forms.RadioButton)
 $R_DWORD = (New-Object -TypeName System.Windows.Forms.RadioButton)
 $TB_registryHKEY = (New-Object -TypeName System.Windows.Forms.TextBox)
 $Label24 = (New-Object -TypeName System.Windows.Forms.Label)
 $Panel2 = (New-Object -TypeName System.Windows.Forms.Panel)
-$Panel1.SuspendLayout()
+$Label2 = (New-Object -TypeName System.Windows.Forms.Label)
+$Panel1 = (New-Object -TypeName System.Windows.Forms.Panel)
 $Panel2.SuspendLayout()
+$Panel1.SuspendLayout()
 $Form1.SuspendLayout()
 #
 #L_CNAGPACK
@@ -108,7 +106,7 @@ $L_CNAGPACK.Font = (New-Object -TypeName System.Drawing.Font -ArgumentList @([Sy
 $L_CNAGPACK.ForeColor = [System.Drawing.Color]::White
 $L_CNAGPACK.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]37,[System.Int32]33))
 $L_CNAGPACK.Name = [System.String]'L_CNAGPACK'
-$L_CNAGPACK.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]608,[System.Int32]37))
+$L_CNAGPACK.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]544,[System.Int32]37))
 $L_CNAGPACK.TabIndex = [System.Int32]0
 $L_CNAGPACK.Text = [System.String]'CNAG.PACK - connecT .intunewin Packager'
 $L_CNAGPACK.add_Click($L_CNAGPACK_Click)
@@ -142,7 +140,7 @@ $L_ProgressBarTitle.BackColor = [System.Drawing.Color]::FromArgb(([System.Int32]
 
 $L_ProgressBarTitle.Font = (New-Object -TypeName System.Drawing.Font -ArgumentList @([System.String]'Arial',[System.Single]10))
 $L_ProgressBarTitle.ForeColor = [System.Drawing.Color]::White
-$L_ProgressBarTitle.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]32,[System.Int32]1056))
+$L_ProgressBarTitle.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]32,[System.Int32]1018))
 $L_ProgressBarTitle.Name = [System.String]'L_ProgressBarTitle'
 $L_ProgressBarTitle.RightToLeft = [System.Windows.Forms.RightToLeft]::No
 $L_ProgressBarTitle.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]529,[System.Int32]23))
@@ -172,7 +170,7 @@ $Label6.ForeColor = [System.Drawing.Color]::White
 $Label6.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]453,[System.Int32]161))
 $Label6.Name = [System.String]'Label6'
 $Label6.RightToLeft = [System.Windows.Forms.RightToLeft]::No
-$Label6.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]130,[System.Int32]23))
+$Label6.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]111,[System.Int32]23))
 $Label6.TabIndex = [System.Int32]2
 $Label6.Text = [System.String]'Version'
 #
@@ -271,7 +269,7 @@ $R_User.add_Click($R_User_Click)
 #
 $B_create_Intunewin.BackColor = [System.Drawing.Color]::White
 $B_create_Intunewin.Font = (New-Object -TypeName System.Drawing.Font -ArgumentList @([System.String]'Arial',[System.Single]10,[System.Drawing.FontStyle]::Bold,[System.Drawing.GraphicsUnit]::Point,([System.Byte][System.Byte]0)))
-$B_create_Intunewin.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]35,[System.Int32]977))
+$B_create_Intunewin.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]35,[System.Int32]939))
 $B_create_Intunewin.Name = [System.String]'B_create_Intunewin'
 $B_create_Intunewin.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]529,[System.Int32]47))
 $B_create_Intunewin.TabIndex = [System.Int32]6
@@ -423,7 +421,7 @@ $CB_killProcessesName.ForeColor = [System.Drawing.Color]::White
 $CB_killProcessesName.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]40,[System.Int32]580))
 $CB_killProcessesName.Name = [System.String]'CB_killProcessesName'
 $CB_killProcessesName.RightToLeft = [System.Windows.Forms.RightToLeft]::No
-$CB_killProcessesName.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]548,[System.Int32]24))
+$CB_killProcessesName.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]451,[System.Int32]24))
 $CB_killProcessesName.TabIndex = [System.Int32]7
 $CB_killProcessesName.Text = [System.String]'Kill Processes Name (separate with comma)'
 $CB_killProcessesName.UseVisualStyleBackColor = $true
@@ -431,7 +429,7 @@ $CB_killProcessesName.add_CheckedChanged($CB_killProcessesName_CheckedChanged)
 #
 #PB_ProgressBar
 #
-$PB_ProgressBar.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]35,[System.Int32]1030))
+$PB_ProgressBar.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]35,[System.Int32]992))
 $PB_ProgressBar.Name = [System.String]'PB_ProgressBar'
 $PB_ProgressBar.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]529,[System.Int32]23))
 $PB_ProgressBar.Style = [System.Windows.Forms.ProgressBarStyle]::Continuous
@@ -457,7 +455,7 @@ $L_ProgressBarOutputFolder.BackColor = [System.Drawing.Color]::FromArgb(([System
 
 $L_ProgressBarOutputFolder.Font = (New-Object -TypeName System.Drawing.Font -ArgumentList @([System.String]'Arial',[System.Single]10))
 $L_ProgressBarOutputFolder.ForeColor = [System.Drawing.Color]::White
-$L_ProgressBarOutputFolder.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]32,[System.Int32]1079))
+$L_ProgressBarOutputFolder.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]32,[System.Int32]1041))
 $L_ProgressBarOutputFolder.Name = [System.String]'L_ProgressBarOutputFolder'
 $L_ProgressBarOutputFolder.RightToLeft = [System.Windows.Forms.RightToLeft]::No
 $L_ProgressBarOutputFolder.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]529,[System.Int32]23))
@@ -534,7 +532,7 @@ $LB_registryKeys.TabIndex = [System.Int32]10
 $B_registryAdd.BackColor = [System.Drawing.Color]::White
 $B_registryAdd.Enabled = $false
 $B_registryAdd.Font = (New-Object -TypeName System.Drawing.Font -ArgumentList @([System.String]'Arial',[System.Single]10))
-$B_registryAdd.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]384,[System.Int32]909))
+$B_registryAdd.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]384,[System.Int32]881))
 $B_registryAdd.Name = [System.String]'B_registryAdd'
 $B_registryAdd.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]87,[System.Int32]25))
 $B_registryAdd.TabIndex = [System.Int32]11
@@ -545,10 +543,10 @@ $B_registryAdd.add_Click($B_registryAdd_Click)
 #TB_registryPath
 #
 $TB_registryPath.Enabled = $false
-$TB_registryPath.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]206,[System.Int32]785))
+$TB_registryPath.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]206,[System.Int32]780))
 $TB_registryPath.Name = [System.String]'TB_registryPath'
 $TB_registryPath.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]363,[System.Int32]24))
-$TB_registryPath.TabIndex = [System.Int32]12
+$TB_registryPath.TabIndex = [System.Int32]21
 $TB_registryPath.Text = [System.String]'SOFTWARE\YOURPATH'
 #
 #B_registryRemove
@@ -559,7 +557,7 @@ $B_registryRemove.Enabled = $false
 $B_registryRemove.Font = (New-Object -TypeName System.Drawing.Font -ArgumentList @([System.String]'Arial',[System.Single]10))
 $B_registryRemove.ForeColor = [System.Drawing.Color]::FromArgb(([System.Int32]([System.Byte][System.Byte]0)),([System.Int32]([System.Byte][System.Byte]0)),([System.Int32]([System.Byte][System.Byte]0)))
 
-$B_registryRemove.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]482,[System.Int32]908))
+$B_registryRemove.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]482,[System.Int32]881))
 $B_registryRemove.Name = [System.String]'B_registryRemove'
 $B_registryRemove.RightToLeft = [System.Windows.Forms.RightToLeft]::No
 $B_registryRemove.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]87,[System.Int32]25))
@@ -574,19 +572,12 @@ $Label23.BackColor = [System.Drawing.Color]::FromArgb(([System.Int32]([System.By
 
 $Label23.Font = (New-Object -TypeName System.Drawing.Font -ArgumentList @([System.String]'Arial',[System.Single]10))
 $Label23.ForeColor = [System.Drawing.Color]::White
-$Label23.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]35,[System.Int32]910))
+$Label23.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]32,[System.Int32]885))
 $Label23.Name = [System.String]'Label23'
 $Label23.RightToLeft = [System.Windows.Forms.RightToLeft]::No
 $Label23.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]89,[System.Int32]23))
 $Label23.TabIndex = [System.Int32]2
 $Label23.Text = [System.String]'Key Type:'
-#
-#Label21
-#
-$Label21.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]0,[System.Int32]0))
-$Label21.Name = [System.String]'Label21'
-$Label21.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]100,[System.Int32]23))
-$Label21.TabIndex = [System.Int32]17
 #
 #Label22
 #
@@ -594,7 +585,7 @@ $Label22.BackColor = [System.Drawing.Color]::FromArgb(([System.Int32]([System.By
 
 $Label22.Font = (New-Object -TypeName System.Drawing.Font -ArgumentList @([System.String]'Arial',[System.Single]10))
 $Label22.ForeColor = [System.Drawing.Color]::White
-$Label22.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]35,[System.Int32]868))
+$Label22.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]32,[System.Int32]852))
 $Label22.Name = [System.String]'Label22'
 $Label22.RightToLeft = [System.Windows.Forms.RightToLeft]::No
 $Label22.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]91,[System.Int32]22))
@@ -608,11 +599,11 @@ $TB_registryKeyValue.Enabled = $false
 $TB_registryKeyValue.Font = (New-Object -TypeName System.Drawing.Font -ArgumentList @([System.String]'Tahoma',[System.Single]8.25))
 $TB_registryKeyValue.ForeColor = [System.Drawing.SystemColors]::WindowText
 $TB_registryKeyValue.ImeMode = [System.Windows.Forms.ImeMode]::NoControl
-$TB_registryKeyValue.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]147,[System.Int32]865))
+$TB_registryKeyValue.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]147,[System.Int32]847))
 $TB_registryKeyValue.Name = [System.String]'TB_registryKeyValue'
 $TB_registryKeyValue.RightToLeft = [System.Windows.Forms.RightToLeft]::No
 $TB_registryKeyValue.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]422,[System.Int32]24))
-$TB_registryKeyValue.TabIndex = [System.Int32]12
+$TB_registryKeyValue.TabIndex = [System.Int32]23
 $TB_registryKeyValue.Text = [System.String]'abcdefg'
 #
 #TB_registryKeyName
@@ -622,21 +613,12 @@ $TB_registryKeyName.Enabled = $false
 $TB_registryKeyName.Font = (New-Object -TypeName System.Drawing.Font -ArgumentList @([System.String]'Tahoma',[System.Single]8.25))
 $TB_registryKeyName.ForeColor = [System.Drawing.SystemColors]::WindowText
 $TB_registryKeyName.ImeMode = [System.Windows.Forms.ImeMode]::NoControl
-$TB_registryKeyName.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]147,[System.Int32]823))
+$TB_registryKeyName.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]147,[System.Int32]813))
 $TB_registryKeyName.Name = [System.String]'TB_registryKeyName'
 $TB_registryKeyName.RightToLeft = [System.Windows.Forms.RightToLeft]::No
 $TB_registryKeyName.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]422,[System.Int32]24))
-$TB_registryKeyName.TabIndex = [System.Int32]12
+$TB_registryKeyName.TabIndex = [System.Int32]22
 $TB_registryKeyName.Text = [System.String]'Testkey'
-#
-#Panel1
-#
-$Panel1.Controls.Add($R_REGSZ)
-$Panel1.Controls.Add($R_DWORD)
-$Panel1.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]143,[System.Int32]910))
-$Panel1.Name = [System.String]'Panel1'
-$Panel1.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]235,[System.Int32]33))
-$Panel1.TabIndex = [System.Int32]16
 #
 #R_REGSZ
 #
@@ -644,13 +626,14 @@ $R_REGSZ.BackColor = [System.Drawing.Color]::Transparent
 $R_REGSZ.Checked = $true
 $R_REGSZ.Enabled = $false
 $R_REGSZ.ForeColor = [System.Drawing.Color]::White
-$R_REGSZ.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]3,[System.Int32]-1))
+$R_REGSZ.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]3,[System.Int32]3))
 $R_REGSZ.Name = [System.String]'R_REGSZ'
 $R_REGSZ.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]84,[System.Int32]24))
-$R_REGSZ.TabIndex = [System.Int32]1
+$R_REGSZ.TabIndex = [System.Int32]0
 $R_REGSZ.TabStop = $true
 $R_REGSZ.Text = [System.String]'REG_SZ'
 $R_REGSZ.UseVisualStyleBackColor = $false
+$R_REGSZ.add_CheckedChanged($R_REGSZ_CheckedChanged)
 $R_REGSZ.add_Click($R_REGSZ_Click)
 #
 #R_DWORD
@@ -658,10 +641,10 @@ $R_REGSZ.add_Click($R_REGSZ_Click)
 $R_DWORD.BackColor = [System.Drawing.Color]::Transparent
 $R_DWORD.Enabled = $false
 $R_DWORD.ForeColor = [System.Drawing.Color]::White
-$R_DWORD.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]106,[System.Int32]-1))
+$R_DWORD.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]99,[System.Int32]3))
 $R_DWORD.Name = [System.String]'R_DWORD'
-$R_DWORD.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]133,[System.Int32]24))
-$R_DWORD.TabIndex = [System.Int32]0
+$R_DWORD.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]122,[System.Int32]24))
+$R_DWORD.TabIndex = [System.Int32]1
 $R_DWORD.Text = [System.String]'REG_DWORD'
 $R_DWORD.UseVisualStyleBackColor = $false
 $R_DWORD.add_Click($R_DWORD_Click)
@@ -673,12 +656,12 @@ $TB_registryHKEY.Enabled = $false
 $TB_registryHKEY.Font = (New-Object -TypeName System.Drawing.Font -ArgumentList @([System.String]'Tahoma',[System.Single]8.25))
 $TB_registryHKEY.ForeColor = [System.Drawing.SystemColors]::WindowText
 $TB_registryHKEY.ImeMode = [System.Windows.Forms.ImeMode]::NoControl
-$TB_registryHKEY.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]147,[System.Int32]785))
+$TB_registryHKEY.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]147,[System.Int32]780))
 $TB_registryHKEY.Name = [System.String]'TB_registryHKEY'
 $TB_registryHKEY.ReadOnly = $true
 $TB_registryHKEY.RightToLeft = [System.Windows.Forms.RightToLeft]::No
 $TB_registryHKEY.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]53,[System.Int32]24))
-$TB_registryHKEY.TabIndex = [System.Int32]12
+$TB_registryHKEY.TabIndex = [System.Int32]20
 $TB_registryHKEY.Text = [System.String]'HKLM:\'
 #
 #Label24
@@ -687,10 +670,10 @@ $Label24.BackColor = [System.Drawing.Color]::FromArgb(([System.Int32]([System.By
 
 $Label24.Font = (New-Object -TypeName System.Drawing.Font -ArgumentList @([System.String]'Arial',[System.Single]10))
 $Label24.ForeColor = [System.Drawing.Color]::White
-$Label24.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]35,[System.Int32]827))
+$Label24.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]32,[System.Int32]818))
 $Label24.Name = [System.String]'Label24'
 $Label24.RightToLeft = [System.Windows.Forms.RightToLeft]::No
-$Label24.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]91,[System.Int32]22))
+$Label24.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]91,[System.Int32]26))
 $Label24.TabIndex = [System.Int32]2
 $Label24.Text = [System.String]'Key Name:'
 #
@@ -698,10 +681,32 @@ $Label24.Text = [System.String]'Key Name:'
 #
 $Panel2.Controls.Add($L_AllRightsReservedCNAG)
 $Panel2.Controls.Add($Label9)
-$Panel2.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]0,[System.Int32]1105))
+$Panel2.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]0,[System.Int32]1067))
 $Panel2.Name = [System.String]'Panel2'
-$Panel2.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]606,[System.Int32]44))
+$Panel2.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]564,[System.Int32]44))
 $Panel2.TabIndex = [System.Int32]18
+#
+#Label2
+#
+$Label2.BackColor = [System.Drawing.Color]::FromArgb(([System.Int32]([System.Byte][System.Byte]14)),([System.Int32]([System.Byte][System.Byte]30)),([System.Int32]([System.Byte][System.Byte]55)))
+
+$Label2.Font = (New-Object -TypeName System.Drawing.Font -ArgumentList @([System.String]'Arial',[System.Single]10))
+$Label2.ForeColor = [System.Drawing.Color]::White
+$Label2.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]32,[System.Int32]786))
+$Label2.Name = [System.String]'Label2'
+$Label2.RightToLeft = [System.Windows.Forms.RightToLeft]::No
+$Label2.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]91,[System.Int32]24))
+$Label2.TabIndex = [System.Int32]2
+$Label2.Text = [System.String]'Path:'
+#
+#Panel1
+#
+$Panel1.Controls.Add($R_REGSZ)
+$Panel1.Controls.Add($R_DWORD)
+$Panel1.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]144,[System.Int32]879))
+$Panel1.Name = [System.String]'Panel1'
+$Panel1.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]228,[System.Int32]37))
+$Panel1.TabIndex = [System.Int32]24
 #
 #Form1
 #
@@ -709,9 +714,9 @@ $Form1.AutoScaleDimensions = (New-Object -TypeName System.Drawing.SizeF -Argumen
 $Form1.AutoScaleMode = [System.Windows.Forms.AutoScaleMode]::Dpi
 $Form1.BackColor = [System.Drawing.Color]::FromArgb(([System.Int32]([System.Byte][System.Byte]14)),([System.Int32]([System.Byte][System.Byte]30)),([System.Int32]([System.Byte][System.Byte]55)))
 
-$Form1.ClientSize = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]604,[System.Int32]1179))
-$Form1.Controls.Add($Panel2)
+$Form1.ClientSize = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]617,[System.Int32]1139))
 $Form1.Controls.Add($Panel1)
+$Form1.Controls.Add($Panel2)
 $Form1.Controls.Add($TB_registryPath)
 $Form1.Controls.Add($B_registryAdd)
 $Form1.Controls.Add($LB_registryKeys)
@@ -746,20 +751,19 @@ $Form1.Controls.Add($Label1)
 $Form1.Controls.Add($RTB_UninstallParameter)
 $Form1.Controls.Add($B_selectShortcut)
 $Form1.Controls.Add($B_registryRemove)
-$Form1.Controls.Add($Label20)
 $Form1.Controls.Add($Label23)
-$Form1.Controls.Add($Label21)
 $Form1.Controls.Add($Label22)
 $Form1.Controls.Add($TB_registryKeyValue)
 $Form1.Controls.Add($TB_registryKeyName)
 $Form1.Controls.Add($TB_registryHKEY)
 $Form1.Controls.Add($Label24)
+$Form1.Controls.Add($Label2)
 $Form1.FormBorderStyle = [System.Windows.Forms.FormBorderStyle]::FixedSingle
 $Form1.MaximizeBox = $false
 $Form1.Text = [System.String]'CNAG.PACK - connecT .Intunewin Packager'
 $Form1.add_Load($Form1_Load)
-$Panel1.ResumeLayout($false)
 $Panel2.ResumeLayout($false)
+$Panel1.ResumeLayout($false)
 $Form1.ResumeLayout($false)
 $Form1.PerformLayout()
 Add-Member -InputObject $Form1 -Name L_CNAGPACK -Value $L_CNAGPACK -MemberType NoteProperty
@@ -798,17 +802,16 @@ Add-Member -InputObject $Form1 -Name LB_registryKeys -Value $LB_registryKeys -Me
 Add-Member -InputObject $Form1 -Name B_registryAdd -Value $B_registryAdd -MemberType NoteProperty
 Add-Member -InputObject $Form1 -Name TB_registryPath -Value $TB_registryPath -MemberType NoteProperty
 Add-Member -InputObject $Form1 -Name B_registryRemove -Value $B_registryRemove -MemberType NoteProperty
-Add-Member -InputObject $Form1 -Name Label20 -Value $Label20 -MemberType NoteProperty
 Add-Member -InputObject $Form1 -Name Label23 -Value $Label23 -MemberType NoteProperty
-Add-Member -InputObject $Form1 -Name Label21 -Value $Label21 -MemberType NoteProperty
 Add-Member -InputObject $Form1 -Name Label22 -Value $Label22 -MemberType NoteProperty
 Add-Member -InputObject $Form1 -Name TB_registryKeyValue -Value $TB_registryKeyValue -MemberType NoteProperty
 Add-Member -InputObject $Form1 -Name TB_registryKeyName -Value $TB_registryKeyName -MemberType NoteProperty
-Add-Member -InputObject $Form1 -Name Panel1 -Value $Panel1 -MemberType NoteProperty
 Add-Member -InputObject $Form1 -Name R_REGSZ -Value $R_REGSZ -MemberType NoteProperty
 Add-Member -InputObject $Form1 -Name R_DWORD -Value $R_DWORD -MemberType NoteProperty
 Add-Member -InputObject $Form1 -Name TB_registryHKEY -Value $TB_registryHKEY -MemberType NoteProperty
 Add-Member -InputObject $Form1 -Name Label24 -Value $Label24 -MemberType NoteProperty
 Add-Member -InputObject $Form1 -Name Panel2 -Value $Panel2 -MemberType NoteProperty
+Add-Member -InputObject $Form1 -Name Label2 -Value $Label2 -MemberType NoteProperty
+Add-Member -InputObject $Form1 -Name Panel1 -Value $Panel1 -MemberType NoteProperty
 }
 . InitializeComponent

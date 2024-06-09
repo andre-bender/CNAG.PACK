@@ -1,6 +1,7 @@
 $Form1_Load = {
 }
-
+$R_REGSZ_CheckedChanged = {
+}
 $TB_KillProcessesName_TextChanged = {
 }
 # Add the necessary assemblies for WPF
