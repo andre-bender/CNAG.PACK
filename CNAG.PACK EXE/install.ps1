@@ -13,8 +13,11 @@ if (Test-Path -Path ".\config.ps1") {
     $installFile = $installFileValue
     $killProcessesName = $killProcessesNameValue -split ",\s*"
     [Bool]$installContext = $installContextValue #0 (false) for user, 1 (true) for system
-    [Bool]$editRegistry = $false
+    $registryList = $registryListValueString
     $MSIGUID = $MSIGUIDValue
+    $shortcutFile = $shortcutFileValue
+    [Bool]$shortcutDesktop = $shortcutDesktopValue
+    [Bool]$shortcutStartmenu = $shortcutStartmenuValue
 
     Write-Host "Variables have been set." -ForegroundColor Green
 
@@ -78,6 +81,12 @@ if($installFile -like "*.msi") {
         Start-Process 'msiexec.exe' -ArgumentList $arguments -Wait -NoNewWindow
         Write-Host "Calling msiexec successful." -ForegroundColor Green
         Start-Sleep -Seconds 2
+        if(Test-Path -Path "C:\Program Files (x86)\Sophos\Connect\import\sophos.pro"){
+            Write-Host "Die Datei sophos.pro existiert"
+        }else{
+            Write-Host "Die Datei sophos.pro existiert nicht"
+        }
+
     } catch {
         Write-Host "_____________________________________________________________________" -ForegroundColor Red
         Write-Host "ERROR while installing $PackageName" -ForegroundColor Red
@@ -122,27 +131,77 @@ else{
     }
 }  #>
 
-### SET REGISTRY VALUES IF $editRegistry HAS BEEN SET TO 1
-if($editRegistry -eq $false){
-    Write-Host "editRegistry has NOT been setup. Skipping this part..."
-}else{
-    try{
-    Write-Host "editRegistry has been setup. Registry values will be set." -ForegroundColor Yellow
+### SET REGISTRY VALUES
+if ([string]::IsNullOrWhiteSpace($registryList)) {
+    Write-Host "No registry values set. Skipping..." -ForegroundColor Yellow 
+}
+else{
+    try {
+        $registryKeys = $registryList -split "; "
+        foreach ($registryKey in $registryKeys) {
+            $parts = $registryKey -split '\| '
+            $registryPath = $parts[0].Trim()
+            $registryName = $parts[1].Trim()
+            $registryValue = $parts[2].Trim()
+            $registryType = $parts[3]    
+            # Create the registry path if it doesn't exist
+            if (-not (Test-Path $registryPath)) {
+                New-Item -Path $registryPath -Force | Out-Null
+            }
     
-    $registryPath = "HKLM:\SOFTWARE\WOW6432Node\Swyx\Client Line Manager\CurrentVersion\Options"
-    if (-not (Test-Path $registryPath)) {
-    New-Item -Path $registryPath -Force
+            if($registryType -eq "REG_SZ"){
+                Set-ItemProperty -Path "$registryPath" -Name "$registryName" -Value "$registryValue" -Force
+                Write-Host "Registry key '$registryPath\$registryName\$registryValue' has been set up successful as '$registryType'" -ForegroundColor Green
+            }elseif($registryType -eq "DWORD"){
+                if ($registryValue -match '^0x[0-9A-Fa-f]{8}$') {
+                    Set-ItemProperty -Path "$registryPath" -Name "$registryName" -Value "$registryValue" -Type $registryType -Force
+                    Write-Host "Registry key '$registryPath\$registryName\$registryValue' has been set up successful as '$registryType'" -ForegroundColor Green
+                }else{
+                    Write-Host "ERROR: The DWORD value '$registryValue' is not in hexadecimal format." -ForegroundColor Red
+                }
+            }
+        }  
     }
+    catch {
+        Write-Host "_____________________________________________________________________"
+        Write-Host "ERROR while setting registry keys" -ForegroundColor Red
+        Write-Host "$_"
+        Exit 1603
+    }
+}
 
-    Set-ItemProperty -Path $registryPath -Name "AllowInboundIntercom" -Value "0" -Type DWORD -Force
-    Set-ItemProperty -Path $registryPath -Name "AllowOutboundIntercom" -Value "0" -Type DWORD -Force
-    Write-Host "Registry keys setup successful." -ForegroundColor Green
+### SET SHORTCUT IF FILE EXISTS
+if([string]::IsNullOrWhiteSpace($shortcutFile) -and ($shortcutDesktop -eq $false -or $shortcutStartmenu -eq $false)){
+    Write-Host "No shortcut file set. Skipping..." -ForegroundColor Yellow
+}
+else{
+        try {
+        if($installContext -eq $true){
+            # Check if shortcutDesktop is true, then set startmenu shortcut
+            if($shortcutDesktop-eq $true){
+                # Copy file to public desktop if installContext = SYSTEM
+                $publicDesktop = [Environment]::GetFolderPath("CommonDesktopDirectory")
+                Copy-Item -Path ".\$shortcutFile" -Destination "$publicDesktop" -Force
+                Write-Host "Desktop Shortcut has been saved in $publicDesktop" -ForegroundColor Green
+            }
+            # Check if shortcutStartmenu is true, then set startmenu shortcut
+            if($shortcutStartmenu -eq $true){
+                $allUsersStartMenu = [Environment]::GetFolderPath("CommonStartMenu")
+                Copy-Item -Path ".\$shortcutFile" -Destination "$allUsersStartMenu" -Force
+                Write-Host "Startmenu Shortcut has been saved in $publicDesktop" -ForegroundColor Green 
+            }
+        }else{
+            # Copy file to user desktop if installContext = USER
+            #$currentDesktop = [Environment]::GetFolderPath("Desktop")
+            #Copy-Item -Path ".\$shortcutFile" -Destination "$currentDesktop" -Force
+            #Write-Host "Shortcut has been saved in $currentDesktop" -ForegroundColor Green
+        }
     }
-    catch{
-    Write-Host "_____________________________________________________________________"
-    Write-Host "ERROR while setting registry keys" -ForegroundColor Red
-    Write-Host "$_"
-    Exit 1603
+    catch {
+        Write-Host "_____________________________________________________________________"
+        Write-Host "Couldn't set shortcut file." -ForegroundColor Red
+        Write-Host "$_"
+        Exit 1603  
     }
 }
 
