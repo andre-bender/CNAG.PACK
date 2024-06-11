@@ -81,6 +81,12 @@ if($installFile -like "*.msi") {
         Start-Process 'msiexec.exe' -ArgumentList $arguments -Wait -NoNewWindow
         Write-Host "Calling msiexec successful." -ForegroundColor Green
         Start-Sleep -Seconds 2
+        if(Test-Path -Path "C:\Program Files (x86)\Sophos\Connect\import\sophos.pro"){
+            Write-Host "Die Datei sophos.pro existiert"
+        }else{
+            Write-Host "Die Datei sophos.pro existiert nicht"
+        }
+
     } catch {
         Write-Host "_____________________________________________________________________" -ForegroundColor Red
         Write-Host "ERROR while installing $PackageName" -ForegroundColor Red
@@ -126,7 +132,10 @@ else{
 }  #>
 
 ### SET REGISTRY VALUES
-if($registryList -ne $null -or $registryList -ne ""){
+if ([string]::IsNullOrWhiteSpace($registryList)) {
+    Write-Host "No registry values set. Skipping..." -ForegroundColor Yellow 
+}
+else{
     try {
         $registryKeys = $registryList -split "; "
         foreach ($registryKey in $registryKeys) {
@@ -162,8 +171,11 @@ if($registryList -ne $null -or $registryList -ne ""){
 }
 
 ### SET SHORTCUT IF FILE EXISTS
-if(($shortcutFile -ne $null -or $shortcutFile -ne "") -and $shortcutDesktop -eq $true -or $shortcutStartmenu -eq $true){
-    try {
+if([string]::IsNullOrWhiteSpace($shortcutFile) -and ($shortcutDesktop -eq $false -or $shortcutStartmenu -eq $false)){
+    Write-Host "No shortcut file set. Skipping..." -ForegroundColor Yellow
+}
+else{
+        try {
         if($installContext -eq $true){
             # Check if shortcutDesktop is true, then set startmenu shortcut
             if($shortcutDesktop-eq $true){
