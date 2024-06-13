@@ -80,13 +80,6 @@ if($installFile -like "*.msi") {
         $arguments = "/I `"$installFile`" $installParameter /L*v `"$Path_local\$PackageName-install-msi.log`""
         Start-Process 'msiexec.exe' -ArgumentList $arguments -Wait -NoNewWindow
         Write-Host "Calling msiexec successful." -ForegroundColor Green
-        Start-Sleep -Seconds 2
-        if(Test-Path -Path "C:\Program Files (x86)\Sophos\Connect\import\sophos.pro"){
-            Write-Host "Die Datei sophos.pro existiert"
-        }else{
-            Write-Host "Die Datei sophos.pro existiert nicht"
-        }
-
     } catch {
         Write-Host "_____________________________________________________________________" -ForegroundColor Red
         Write-Host "ERROR while installing $PackageName" -ForegroundColor Red
@@ -199,7 +192,7 @@ else{
     }
     catch {
         Write-Host "_____________________________________________________________________"
-        Write-Host "Couldn't set shortcut file." -ForegroundColor Red
+        Write-Host "ERROR: Couldn't set shortcut file." -ForegroundColor Red
         Write-Host "$_"
         Exit 1603  
     }
