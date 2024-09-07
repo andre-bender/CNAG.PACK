@@ -759,6 +759,7 @@ $Form1.Controls.Add($TB_registryHKEY)
 $Form1.Controls.Add($Label24)
 $Form1.Controls.Add($Label2)
 $Form1.FormBorderStyle = [System.Windows.Forms.FormBorderStyle]::FixedSingle
+$Form1.Icon = ([System.Drawing.Icon]$resources.'$this.Icon')
 $Form1.MaximizeBox = $false
 $Form1.Text = [System.String]'CNAG.PACK - connecT .Intunewin Packager'
 $Form1.add_Load($Form1_Load)
