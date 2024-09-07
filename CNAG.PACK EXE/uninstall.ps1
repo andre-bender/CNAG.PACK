@@ -85,10 +85,10 @@ if($installFile -like "*.msi"){
     }
 else{
     try {
-        Write-Host "EXE Installer has been detected. Starting with installation..."
-        $arguments = "$installParameter /LOG=`"$Path_local\$PackageName-uninstall-app.log`""
+        Write-Host "EXE Installer has been detected. Starting with uninstall..."
+        $arguments = "$uninstallParameter"
         Start-Process -FilePath $FilePath -ArgumentList $arguments -Wait -NoNewWindow
-        Write-Host "Installation successful." -ForegroundColor Green
+        Write-Host "Uninstall successful." -ForegroundColor Green
     } catch {
         Write-Host "_____________________________________________________________________"
         Write-Host "ERROR while installing $PackageName" -ForegroundColor Red

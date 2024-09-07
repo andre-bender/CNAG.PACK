@@ -20,8 +20,8 @@ Easy Packaging:
 - Upload .intunewin in Microsoft Intune: Simply upload the .intune package and set the install and uninstall command.
  ![image](https://tech.tristantyson.com/assets/images/DeployPowerShellApp/selectIntunewinFile.gif)
 - Set the following install & uninstall command.
-  - Install command: powershell.exe -NoProfile -ExecutionPolicy Bypass -NoNewWindow -File .\install.ps1
-  - Uninstall command: powershell.exe -NoProfile -ExecutionPolicy Bypass -NoNewWindow -File .\uninstall.ps1
+  - Install command: powershell.exe -ExecutionPolicy Bypass -File .\install.ps1
+  - Uninstall command: powershell.exe -ExecutionPolicy Bypass -File .\uninstall.ps1
    ![image](https://tech.tristantyson.com/assets/images/DeployPowerShellApp/program.png)
 
 ### Benefits
