@@ -204,8 +204,8 @@ $B_create_Intunewin_Click = {
         # Sets values
         $configContentString = @"
 `$packageNameValue = "$fullPackageName"
-`$installParameterValue = "$installParameterValue"
-`$uninstallParameterValue = "$uninstallParameterValue"
+`$installParameterValue = '$installParameterValue'
+`$uninstallParameterValue = '$uninstallParameterValue'
 `$installFileValue = "$installFileValue"
 `$killProcessesNameValue = "$killProcessesNameValue"
 `$installContextValue = `$$installContextValue
