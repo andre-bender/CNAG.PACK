@@ -11,6 +11,7 @@ if (Test-Path -Path ".\config.ps1") {
     $installParameter = $installParameterValue
     $uninstallParameter =$uninstallParameterValue
     $installFile = $installFileValue
+    $uninstallFile = $uninstallFileValue
     $killProcessesName = $killProcessesNameValue -split ",\s*"
     [Bool]$installContext = $installContextValue
     [Bool]$editRegistry = $false
@@ -87,7 +88,7 @@ else{
     try {
         Write-Host "EXE Installer has been detected. Starting with uninstall..."
         $arguments = "$uninstallParameter"
-        Start-Process -FilePath $FilePath -ArgumentList $arguments -Wait -NoNewWindow
+        Start-Process -FilePath $uninstallFile -ArgumentList $arguments -Wait -NoNewWindow
         Write-Host "Uninstall successful." -ForegroundColor Green
     } catch {
         Write-Host "_____________________________________________________________________"

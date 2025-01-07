@@ -19,9 +19,6 @@ $Form1 = New-Object -TypeName System.Windows.Forms.Form
 [System.Windows.Forms.TextBox]$TB_PackageVersion = $null
 [System.Windows.Forms.Label]$Label11 = $null
 [System.Windows.Forms.TextBox]$TB_MSIGUID = $null
-[System.Windows.Forms.Label]$L_createShortcut = $null
-[System.Windows.Forms.CheckBox]$CB_shortcutDesktop = $null
-[System.Windows.Forms.CheckBox]$CB_shortcutStartmenu = $null
 [System.Windows.Forms.CheckBox]$CB_editRegistry = $null
 [System.Windows.Forms.CheckBox]$CB_killProcessesName = $null
 [System.Windows.Forms.ProgressBar]$PB_ProgressBar = $null
@@ -29,8 +26,6 @@ $Form1 = New-Object -TypeName System.Windows.Forms.Form
 [System.Windows.Forms.Label]$L_ProgressBarOutputFolder = $null
 [System.Windows.Forms.Label]$Label1 = $null
 [System.Windows.Forms.RichTextBox]$RTB_UninstallParameter = $null
-[System.Windows.Forms.Button]$B_Clipboard = $null
-[System.Windows.Forms.Button]$B_selectShortcut = $null
 [System.Windows.Forms.ListBox]$LB_registryKeys = $null
 [System.Windows.Forms.Button]$B_registryAdd = $null
 [System.Windows.Forms.TextBox]$TB_registryPath = $null
@@ -46,6 +41,8 @@ $Form1 = New-Object -TypeName System.Windows.Forms.Form
 [System.Windows.Forms.Panel]$Panel2 = $null
 [System.Windows.Forms.Label]$Label2 = $null
 [System.Windows.Forms.Panel]$Panel1 = $null
+[System.Windows.Forms.TextBox]$TB_UninstallFile = $null
+[System.Windows.Forms.Label]$Label3 = $null
 function InitializeComponent
 {
 $resources = . (Join-Path $PSScriptRoot 'form.resources.ps1')
@@ -69,9 +66,6 @@ $Label10 = (New-Object -TypeName System.Windows.Forms.Label)
 $TB_PackageVersion = (New-Object -TypeName System.Windows.Forms.TextBox)
 $Label11 = (New-Object -TypeName System.Windows.Forms.Label)
 $TB_MSIGUID = (New-Object -TypeName System.Windows.Forms.TextBox)
-$L_createShortcut = (New-Object -TypeName System.Windows.Forms.Label)
-$CB_shortcutDesktop = (New-Object -TypeName System.Windows.Forms.CheckBox)
-$CB_shortcutStartmenu = (New-Object -TypeName System.Windows.Forms.CheckBox)
 $CB_editRegistry = (New-Object -TypeName System.Windows.Forms.CheckBox)
 $CB_killProcessesName = (New-Object -TypeName System.Windows.Forms.CheckBox)
 $PB_ProgressBar = (New-Object -TypeName System.Windows.Forms.ProgressBar)
@@ -79,8 +73,6 @@ $Label4 = (New-Object -TypeName System.Windows.Forms.Label)
 $L_ProgressBarOutputFolder = (New-Object -TypeName System.Windows.Forms.Label)
 $Label1 = (New-Object -TypeName System.Windows.Forms.Label)
 $RTB_UninstallParameter = (New-Object -TypeName System.Windows.Forms.RichTextBox)
-$B_Clipboard = (New-Object -TypeName System.Windows.Forms.Button)
-$B_selectShortcut = (New-Object -TypeName System.Windows.Forms.Button)
 $LB_registryKeys = (New-Object -TypeName System.Windows.Forms.ListBox)
 $B_registryAdd = (New-Object -TypeName System.Windows.Forms.Button)
 $TB_registryPath = (New-Object -TypeName System.Windows.Forms.TextBox)
@@ -96,6 +88,8 @@ $Label24 = (New-Object -TypeName System.Windows.Forms.Label)
 $Panel2 = (New-Object -TypeName System.Windows.Forms.Panel)
 $Label2 = (New-Object -TypeName System.Windows.Forms.Label)
 $Panel1 = (New-Object -TypeName System.Windows.Forms.Panel)
+$TB_UninstallFile = (New-Object -TypeName System.Windows.Forms.TextBox)
+$Label3 = (New-Object -TypeName System.Windows.Forms.Label)
 $Panel2.SuspendLayout()
 $Panel1.SuspendLayout()
 $Form1.SuspendLayout()
@@ -118,7 +112,7 @@ $L_CNAGPACK.add_MouseHover($L_CNAGPACK_MouseHover)
 $TB_PackageName.Font = (New-Object -TypeName System.Drawing.Font -ArgumentList @([System.String]'Arial',[System.Single]10,[System.Drawing.FontStyle]::Regular,[System.Drawing.GraphicsUnit]::Point,([System.Byte][System.Byte]0)))
 $TB_PackageName.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]40,[System.Int32]187))
 $TB_PackageName.Name = [System.String]'TB_PackageName'
-$TB_PackageName.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]388,[System.Int32]27))
+$TB_PackageName.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]388,[System.Int32]23))
 $TB_PackageName.TabIndex = [System.Int32]1
 #
 #L_AllRightsReservedCNAG
@@ -154,7 +148,7 @@ $Label5.BackColor = [System.Drawing.Color]::FromArgb(([System.Int32]([System.Byt
 
 $Label5.Font = (New-Object -TypeName System.Drawing.Font -ArgumentList @([System.String]'Arial',[System.Single]10))
 $Label5.ForeColor = [System.Drawing.Color]::White
-$Label5.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]40,[System.Int32]370))
+$Label5.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]38,[System.Int32]370))
 $Label5.Name = [System.String]'Label5'
 $Label5.RightToLeft = [System.Windows.Forms.RightToLeft]::No
 $Label5.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]210,[System.Int32]23))
@@ -184,7 +178,7 @@ $TB_KillProcessesName.ImeMode = [System.Windows.Forms.ImeMode]::NoControl
 $TB_KillProcessesName.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]40,[System.Int32]610))
 $TB_KillProcessesName.Name = [System.String]'TB_KillProcessesName'
 $TB_KillProcessesName.RightToLeft = [System.Windows.Forms.RightToLeft]::No
-$TB_KillProcessesName.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]529,[System.Int32]27))
+$TB_KillProcessesName.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]529,[System.Int32]23))
 $TB_KillProcessesName.TabIndex = [System.Int32]1
 $TB_KillProcessesName.Text = [System.String]'notepad, outlook, word'
 $TB_KillProcessesName.add_TextChanged($TB_KillProcessesName_TextChanged)
@@ -195,19 +189,20 @@ $TB_InstallFile.BackColor = [System.Drawing.SystemColors]::Window
 $TB_InstallFile.Font = (New-Object -TypeName System.Drawing.Font -ArgumentList @([System.String]'Arial',[System.Single]10))
 $TB_InstallFile.ForeColor = [System.Drawing.SystemColors]::WindowText
 $TB_InstallFile.ImeMode = [System.Windows.Forms.ImeMode]::NoControl
-$TB_InstallFile.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]40,[System.Int32]116))
+$TB_InstallFile.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]40,[System.Int32]119))
 $TB_InstallFile.Name = [System.String]'TB_InstallFile'
 $TB_InstallFile.ReadOnly = $true
 $TB_InstallFile.RightToLeft = [System.Windows.Forms.RightToLeft]::No
-$TB_InstallFile.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]388,[System.Int32]27))
+$TB_InstallFile.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]388,[System.Int32]23))
 $TB_InstallFile.TabIndex = [System.Int32]1
+$TB_InstallFile.add_TextChanged($TB_InstallFile_TextChanged)
 #
 #RTB_InstallParameter
 #
 $RTB_InstallParameter.Font = (New-Object -TypeName System.Drawing.Font -ArgumentList @([System.String]'Arial',[System.Single]9,[System.Drawing.FontStyle]::Regular,[System.Drawing.GraphicsUnit]::Point,([System.Byte][System.Byte]0)))
 $RTB_InstallParameter.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]40,[System.Int32]396))
 $RTB_InstallParameter.Name = [System.String]'RTB_InstallParameter'
-$RTB_InstallParameter.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]529,[System.Int32]62))
+$RTB_InstallParameter.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]529,[System.Int32]48))
 $RTB_InstallParameter.TabIndex = [System.Int32]3
 $RTB_InstallParameter.Text = [System.String]''
 #
@@ -327,7 +322,7 @@ $TB_PackageVersion.ImeMode = [System.Windows.Forms.ImeMode]::NoControl
 $TB_PackageVersion.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]453,[System.Int32]185))
 $TB_PackageVersion.Name = [System.String]'TB_PackageVersion'
 $TB_PackageVersion.RightToLeft = [System.Windows.Forms.RightToLeft]::No
-$TB_PackageVersion.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]113,[System.Int32]27))
+$TB_PackageVersion.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]113,[System.Int32]23))
 $TB_PackageVersion.TabIndex = [System.Int32]1
 #
 #Label11
@@ -352,50 +347,8 @@ $TB_MSIGUID.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList 
 $TB_MSIGUID.Name = [System.String]'TB_MSIGUID'
 $TB_MSIGUID.ReadOnly = $true
 $TB_MSIGUID.RightToLeft = [System.Windows.Forms.RightToLeft]::No
-$TB_MSIGUID.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]350,[System.Int32]25))
+$TB_MSIGUID.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]388,[System.Int32]21))
 $TB_MSIGUID.TabIndex = [System.Int32]1
-#
-#L_createShortcut
-#
-$L_createShortcut.BackColor = [System.Drawing.Color]::FromArgb(([System.Int32]([System.Byte][System.Byte]14)),([System.Int32]([System.Byte][System.Byte]30)),([System.Int32]([System.Byte][System.Byte]55)))
-
-$L_createShortcut.Font = (New-Object -TypeName System.Drawing.Font -ArgumentList @([System.String]'Arial',[System.Single]10))
-$L_createShortcut.ForeColor = [System.Drawing.Color]::White
-$L_createShortcut.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]311,[System.Int32]299))
-$L_createShortcut.Name = [System.String]'L_createShortcut'
-$L_createShortcut.RightToLeft = [System.Windows.Forms.RightToLeft]::No
-$L_createShortcut.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]136,[System.Int32]23))
-$L_createShortcut.TabIndex = [System.Int32]2
-$L_createShortcut.Text = [System.String]'Create Shortcut:'
-#
-#CB_shortcutDesktop
-#
-$CB_shortcutDesktop.BackColor = [System.Drawing.Color]::FromArgb(([System.Int32]([System.Byte][System.Byte]14)),([System.Int32]([System.Byte][System.Byte]30)),([System.Int32]([System.Byte][System.Byte]55)))
-
-$CB_shortcutDesktop.Enabled = $false
-$CB_shortcutDesktop.Font = (New-Object -TypeName System.Drawing.Font -ArgumentList @([System.String]'Arial',[System.Single]10,[System.Drawing.FontStyle]::Regular,[System.Drawing.GraphicsUnit]::Point,([System.Byte][System.Byte]0)))
-$CB_shortcutDesktop.ForeColor = [System.Drawing.Color]::White
-$CB_shortcutDesktop.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]315,[System.Int32]326))
-$CB_shortcutDesktop.Name = [System.String]'CB_shortcutDesktop'
-$CB_shortcutDesktop.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]104,[System.Int32]24))
-$CB_shortcutDesktop.TabIndex = [System.Int32]7
-$CB_shortcutDesktop.Text = [System.String]'Desktop'
-$CB_shortcutDesktop.UseVisualStyleBackColor = $false
-#
-#CB_shortcutStartmenu
-#
-$CB_shortcutStartmenu.BackColor = [System.Drawing.Color]::FromArgb(([System.Int32]([System.Byte][System.Byte]14)),([System.Int32]([System.Byte][System.Byte]30)),([System.Int32]([System.Byte][System.Byte]55)))
-
-$CB_shortcutStartmenu.Enabled = $false
-$CB_shortcutStartmenu.Font = (New-Object -TypeName System.Drawing.Font -ArgumentList @([System.String]'Arial',[System.Single]10))
-$CB_shortcutStartmenu.ForeColor = [System.Drawing.Color]::White
-$CB_shortcutStartmenu.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]315,[System.Int32]347))
-$CB_shortcutStartmenu.Name = [System.String]'CB_shortcutStartmenu'
-$CB_shortcutStartmenu.RightToLeft = [System.Windows.Forms.RightToLeft]::No
-$CB_shortcutStartmenu.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]124,[System.Int32]24))
-$CB_shortcutStartmenu.TabIndex = [System.Int32]7
-$CB_shortcutStartmenu.Text = [System.String]'Startmenu'
-$CB_shortcutStartmenu.UseVisualStyleBackColor = $false
 #
 #CB_editRegistry
 #
@@ -442,7 +395,7 @@ $Label4.BackColor = [System.Drawing.Color]::FromArgb(([System.Int32]([System.Byt
 
 $Label4.Font = (New-Object -TypeName System.Drawing.Font -ArgumentList @([System.String]'Arial',[System.Single]10))
 $Label4.ForeColor = [System.Drawing.Color]::White
-$Label4.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]40,[System.Int32]90))
+$Label4.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]37,[System.Int32]94))
 $Label4.Name = [System.String]'Label4'
 $Label4.RightToLeft = [System.Windows.Forms.RightToLeft]::No
 $Label4.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]332,[System.Int32]23))
@@ -469,7 +422,7 @@ $Label1.BackColor = [System.Drawing.Color]::FromArgb(([System.Int32]([System.Byt
 
 $Label1.Font = (New-Object -TypeName System.Drawing.Font -ArgumentList @([System.String]'Arial',[System.Single]10))
 $Label1.ForeColor = [System.Drawing.Color]::White
-$Label1.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]40,[System.Int32]472))
+$Label1.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]37,[System.Int32]504))
 $Label1.Name = [System.String]'Label1'
 $Label1.RightToLeft = [System.Windows.Forms.RightToLeft]::No
 $Label1.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]332,[System.Int32]23))
@@ -482,50 +435,20 @@ $RTB_UninstallParameter.BackColor = [System.Drawing.SystemColors]::Window
 $RTB_UninstallParameter.Font = (New-Object -TypeName System.Drawing.Font -ArgumentList @([System.String]'Arial',[System.Single]9))
 $RTB_UninstallParameter.ForeColor = [System.Drawing.SystemColors]::WindowText
 $RTB_UninstallParameter.ImeMode = [System.Windows.Forms.ImeMode]::NoControl
-$RTB_UninstallParameter.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]40,[System.Int32]498))
+$RTB_UninstallParameter.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]40,[System.Int32]529))
 $RTB_UninstallParameter.Name = [System.String]'RTB_UninstallParameter'
 $RTB_UninstallParameter.RightToLeft = [System.Windows.Forms.RightToLeft]::No
-$RTB_UninstallParameter.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]529,[System.Int32]62))
+$RTB_UninstallParameter.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]529,[System.Int32]45))
 $RTB_UninstallParameter.TabIndex = [System.Int32]3
 $RTB_UninstallParameter.Text = [System.String]''
-#
-#B_Clipboard
-#
-$B_Clipboard.BackColor = [System.Drawing.Color]::White
-$B_Clipboard.Image = ([System.Drawing.Image]$resources.'B_Clipboard.Image')
-$B_Clipboard.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]396,[System.Int32]253))
-$B_Clipboard.Name = [System.String]'B_Clipboard'
-$B_Clipboard.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]32,[System.Int32]27))
-$B_Clipboard.TabIndex = [System.Int32]9
-$B_Clipboard.UseVisualStyleBackColor = $false
-$B_Clipboard.add_Click($B_Clipboard_Click)
-#
-#B_selectShortcut
-#
-$B_selectShortcut.BackColor = [System.Drawing.Color]::White
-$B_selectShortcut.Font = (New-Object -TypeName System.Drawing.Font -ArgumentList @([System.String]'Arial',[System.Single]10))
-$B_selectShortcut.ForeColor = [System.Drawing.Color]::FromArgb(([System.Int32]([System.Byte][System.Byte]0)),([System.Int32]([System.Byte][System.Byte]0)),([System.Int32]([System.Byte][System.Byte]0)))
-
-$B_selectShortcut.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]453,[System.Int32]293))
-$B_selectShortcut.Name = [System.String]'B_selectShortcut'
-$B_selectShortcut.RightToLeft = [System.Windows.Forms.RightToLeft]::No
-$B_selectShortcut.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]113,[System.Int32]29))
-$B_selectShortcut.TabIndex = [System.Int32]4
-$B_selectShortcut.Text = [System.String]'select'
-$B_selectShortcut.UseVisualStyleBackColor = $false
-$B_selectShortcut.add_Click($B_selectShortcut_Click)
+$RTB_UninstallParameter.add_TextChanged($RTB_UninstallParameter_TextChanged)
 #
 #LB_registryKeys
 #
-$LB_registryKeys.Enabled = $false
-$LB_registryKeys.Font = (New-Object -TypeName System.Drawing.Font -ArgumentList @([System.String]'Arial',[System.Single]8))
-$LB_registryKeys.FormattingEnabled = $true
-$LB_registryKeys.HorizontalScrollbar = $true
-$LB_registryKeys.ItemHeight = [System.Int32]16
-$LB_registryKeys.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]37,[System.Int32]685))
+$LB_registryKeys.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]40,[System.Int32]685))
 $LB_registryKeys.Name = [System.String]'LB_registryKeys'
-$LB_registryKeys.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]532,[System.Int32]84))
-$LB_registryKeys.TabIndex = [System.Int32]10
+$LB_registryKeys.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]529,[System.Int32]69))
+$LB_registryKeys.TabIndex = [System.Int32]27
 #
 #B_registryAdd
 #
@@ -545,7 +468,7 @@ $B_registryAdd.add_Click($B_registryAdd_Click)
 $TB_registryPath.Enabled = $false
 $TB_registryPath.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]206,[System.Int32]780))
 $TB_registryPath.Name = [System.String]'TB_registryPath'
-$TB_registryPath.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]363,[System.Int32]24))
+$TB_registryPath.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]363,[System.Int32]21))
 $TB_registryPath.TabIndex = [System.Int32]21
 $TB_registryPath.Text = [System.String]'SOFTWARE\YOURPATH'
 #
@@ -602,7 +525,7 @@ $TB_registryKeyValue.ImeMode = [System.Windows.Forms.ImeMode]::NoControl
 $TB_registryKeyValue.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]147,[System.Int32]847))
 $TB_registryKeyValue.Name = [System.String]'TB_registryKeyValue'
 $TB_registryKeyValue.RightToLeft = [System.Windows.Forms.RightToLeft]::No
-$TB_registryKeyValue.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]422,[System.Int32]24))
+$TB_registryKeyValue.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]422,[System.Int32]21))
 $TB_registryKeyValue.TabIndex = [System.Int32]23
 $TB_registryKeyValue.Text = [System.String]'abcdefg'
 #
@@ -616,7 +539,7 @@ $TB_registryKeyName.ImeMode = [System.Windows.Forms.ImeMode]::NoControl
 $TB_registryKeyName.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]147,[System.Int32]813))
 $TB_registryKeyName.Name = [System.String]'TB_registryKeyName'
 $TB_registryKeyName.RightToLeft = [System.Windows.Forms.RightToLeft]::No
-$TB_registryKeyName.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]422,[System.Int32]24))
+$TB_registryKeyName.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]422,[System.Int32]21))
 $TB_registryKeyName.TabIndex = [System.Int32]22
 $TB_registryKeyName.Text = [System.String]'Testkey'
 #
@@ -660,7 +583,7 @@ $TB_registryHKEY.Location = (New-Object -TypeName System.Drawing.Point -Argument
 $TB_registryHKEY.Name = [System.String]'TB_registryHKEY'
 $TB_registryHKEY.ReadOnly = $true
 $TB_registryHKEY.RightToLeft = [System.Windows.Forms.RightToLeft]::No
-$TB_registryHKEY.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]53,[System.Int32]24))
+$TB_registryHKEY.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]53,[System.Int32]21))
 $TB_registryHKEY.TabIndex = [System.Int32]20
 $TB_registryHKEY.Text = [System.String]'HKLM:\'
 #
@@ -708,21 +631,38 @@ $Panel1.Name = [System.String]'Panel1'
 $Panel1.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]228,[System.Int32]37))
 $Panel1.TabIndex = [System.Int32]24
 #
+#TB_UninstallFile
+#
+$TB_UninstallFile.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]40,[System.Int32]478))
+$TB_UninstallFile.Name = [System.String]'TB_UninstallFile'
+$TB_UninstallFile.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]526,[System.Int32]21))
+$TB_UninstallFile.TabIndex = [System.Int32]25
+#
+#Label3
+#
+$Label3.Font = (New-Object -TypeName System.Drawing.Font -ArgumentList @([System.String]'Arial',[System.Single]10))
+$Label3.ForeColor = [System.Drawing.Color]::White
+$Label3.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]37,[System.Int32]454))
+$Label3.Name = [System.String]'Label3'
+$Label3.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]100,[System.Int32]23))
+$Label3.TabIndex = [System.Int32]26
+$Label3.Text = [System.String]'Uninstall File'
+#
 #Form1
 #
-$Form1.AutoScaleDimensions = (New-Object -TypeName System.Drawing.SizeF -ArgumentList @([System.Single]120,[System.Single]120))
+$Form1.AutoScaleDimensions = (New-Object -TypeName System.Drawing.SizeF -ArgumentList @([System.Single]96,[System.Single]96))
 $Form1.AutoScaleMode = [System.Windows.Forms.AutoScaleMode]::Dpi
 $Form1.BackColor = [System.Drawing.Color]::FromArgb(([System.Int32]([System.Byte][System.Byte]14)),([System.Int32]([System.Byte][System.Byte]30)),([System.Int32]([System.Byte][System.Byte]55)))
 
-$Form1.ClientSize = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]617,[System.Int32]1139))
+$Form1.ClientSize = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]617,[System.Int32]1133))
+$Form1.Controls.Add($Label3)
+$Form1.Controls.Add($TB_UninstallFile)
 $Form1.Controls.Add($Panel1)
 $Form1.Controls.Add($Panel2)
 $Form1.Controls.Add($TB_registryPath)
 $Form1.Controls.Add($B_registryAdd)
 $Form1.Controls.Add($LB_registryKeys)
-$Form1.Controls.Add($B_Clipboard)
 $Form1.Controls.Add($PB_ProgressBar)
-$Form1.Controls.Add($CB_shortcutDesktop)
 $Form1.Controls.Add($B_create_Intunewin)
 $Form1.Controls.Add($R_System)
 $Form1.Controls.Add($B_selectFile)
@@ -741,15 +681,12 @@ $Form1.Controls.Add($Label10)
 $Form1.Controls.Add($TB_PackageVersion)
 $Form1.Controls.Add($Label11)
 $Form1.Controls.Add($TB_MSIGUID)
-$Form1.Controls.Add($L_createShortcut)
-$Form1.Controls.Add($CB_shortcutStartmenu)
 $Form1.Controls.Add($CB_editRegistry)
 $Form1.Controls.Add($CB_killProcessesName)
 $Form1.Controls.Add($Label4)
 $Form1.Controls.Add($L_ProgressBarOutputFolder)
 $Form1.Controls.Add($Label1)
 $Form1.Controls.Add($RTB_UninstallParameter)
-$Form1.Controls.Add($B_selectShortcut)
 $Form1.Controls.Add($B_registryRemove)
 $Form1.Controls.Add($Label23)
 $Form1.Controls.Add($Label22)
@@ -787,9 +724,6 @@ Add-Member -InputObject $Form1 -Name Label10 -Value $Label10 -MemberType NotePro
 Add-Member -InputObject $Form1 -Name TB_PackageVersion -Value $TB_PackageVersion -MemberType NoteProperty
 Add-Member -InputObject $Form1 -Name Label11 -Value $Label11 -MemberType NoteProperty
 Add-Member -InputObject $Form1 -Name TB_MSIGUID -Value $TB_MSIGUID -MemberType NoteProperty
-Add-Member -InputObject $Form1 -Name L_createShortcut -Value $L_createShortcut -MemberType NoteProperty
-Add-Member -InputObject $Form1 -Name CB_shortcutDesktop -Value $CB_shortcutDesktop -MemberType NoteProperty
-Add-Member -InputObject $Form1 -Name CB_shortcutStartmenu -Value $CB_shortcutStartmenu -MemberType NoteProperty
 Add-Member -InputObject $Form1 -Name CB_editRegistry -Value $CB_editRegistry -MemberType NoteProperty
 Add-Member -InputObject $Form1 -Name CB_killProcessesName -Value $CB_killProcessesName -MemberType NoteProperty
 Add-Member -InputObject $Form1 -Name PB_ProgressBar -Value $PB_ProgressBar -MemberType NoteProperty
@@ -797,8 +731,6 @@ Add-Member -InputObject $Form1 -Name Label4 -Value $Label4 -MemberType NotePrope
 Add-Member -InputObject $Form1 -Name L_ProgressBarOutputFolder -Value $L_ProgressBarOutputFolder -MemberType NoteProperty
 Add-Member -InputObject $Form1 -Name Label1 -Value $Label1 -MemberType NoteProperty
 Add-Member -InputObject $Form1 -Name RTB_UninstallParameter -Value $RTB_UninstallParameter -MemberType NoteProperty
-Add-Member -InputObject $Form1 -Name B_Clipboard -Value $B_Clipboard -MemberType NoteProperty
-Add-Member -InputObject $Form1 -Name B_selectShortcut -Value $B_selectShortcut -MemberType NoteProperty
 Add-Member -InputObject $Form1 -Name LB_registryKeys -Value $LB_registryKeys -MemberType NoteProperty
 Add-Member -InputObject $Form1 -Name B_registryAdd -Value $B_registryAdd -MemberType NoteProperty
 Add-Member -InputObject $Form1 -Name TB_registryPath -Value $TB_registryPath -MemberType NoteProperty
@@ -814,5 +746,7 @@ Add-Member -InputObject $Form1 -Name Label24 -Value $Label24 -MemberType NotePro
 Add-Member -InputObject $Form1 -Name Panel2 -Value $Panel2 -MemberType NoteProperty
 Add-Member -InputObject $Form1 -Name Label2 -Value $Label2 -MemberType NoteProperty
 Add-Member -InputObject $Form1 -Name Panel1 -Value $Panel1 -MemberType NoteProperty
+Add-Member -InputObject $Form1 -Name TB_UninstallFile -Value $TB_UninstallFile -MemberType NoteProperty
+Add-Member -InputObject $Form1 -Name Label3 -Value $Label3 -MemberType NoteProperty
 }
 . InitializeComponent
